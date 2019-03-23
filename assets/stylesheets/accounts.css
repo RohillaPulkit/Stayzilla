@@ -1,6 +1,9 @@
 html,
 body {
   height: 100%;
+    background-image: url(../images/background.jpg);
+    background-repeat-y: no-repeat;
+    background-size: cover;
 }
 
 body {
@@ -14,12 +17,17 @@ body {
 }
 
 .form-signin {
-    /*background-color: rgba(0,0,0,0.5);*/
+    background-color: rgba(42,42,42,0.8);
     width: 100%;
-    max-width: 330px;
+    max-width: 30%;
     padding: 15px;
     margin: auto;
     border-radius: 15px;
+}
+
+.form-signin .btn-primary{
+   background-color:#00bcd4;
+   border-color:#00bcd4;
 }
 
 .form-signin .checkbox {
@@ -36,13 +44,19 @@ body {
   z-index: 2;
 }
 
-.form-signin input[type="text"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+.form-signin input {
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+
+.form-signin .btn-link {
+    font-weight: 400;
+    color: white;
+    background-color: transparent;
+}
+
+.form-signin .btn-link {
+    font-weight: 400;
+    color: white;
+    background-color: transparent;
 }
