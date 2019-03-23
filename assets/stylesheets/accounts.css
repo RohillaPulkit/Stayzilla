@@ -16,7 +16,7 @@ body {
   background-color: #f5f5f5;
 }
 
-.form-signin {
+.form-account {
     background-color: rgba(42,42,42,0.8);
     width: 100%;
     max-width: 30%;
@@ -25,37 +25,31 @@ body {
     border-radius: 15px;
 }
 
-.form-signin .btn-primary{
+.form-account .btn-primary{
    background-color:#00bcd4;
    border-color:#00bcd4;
 }
 
-.form-signin .checkbox {
+.form-account .checkbox {
   font-weight: 400;
 }
-.form-signin .form-control {
+.form-account .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   padding: 10px;
   font-size: 16px;
 }
-.form-signin .form-control:focus {
+.form-account .form-control:focus {
   z-index: 2;
 }
 
-.form-signin input {
+.form-account input {
   margin-bottom: 15px;
   margin-top: 15px;
 }
 
-.form-signin .btn-link {
-    font-weight: 400;
-    color: white;
-    background-color: transparent;
-}
-
-.form-signin .btn-link {
+.form-account .btn-link {
     font-weight: 400;
     color: white;
     background-color: transparent;

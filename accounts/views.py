@@ -7,3 +7,8 @@ def sign_in_view(request):
     else:
         form = forms.SignInForm
         return render(request, "accounts/signin.html", {"form": form})
+
+def signup_view(request):
+    form = forms.SignUpForm
+    return  render(request, "accounts/signup.html", {"form": form})
+
