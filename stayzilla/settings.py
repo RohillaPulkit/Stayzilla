@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -71,16 +70,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stayzilla.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-    'ENGINE':   'django.db.backends.oracle',
-    'NAME':     'oracle.cise.ufl.edu/orcl',
-    'USER':     'prohilla',
-    'PASSWORD': 'm0del123#',
+        'ENGINE':   'django.db.backends.oracle',
+        'NAME':     'oracle.cise.ufl.edu/orcl',
+        'USER':     'prohilla',
+        'PASSWORD': 'R0ht@k123#',
+        'USE_MIGRATIONS': False,
   }
 }
 
@@ -102,6 +101,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.backend.AuthenticationBackend'
+]
+
+AUTH_USER_MODEL = 'accounts.Users'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
