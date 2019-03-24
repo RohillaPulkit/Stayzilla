@@ -71,7 +71,7 @@ class DBManager:
     def get_user(user_id):
         cursor = connection.cursor()
         try:
-            cursor.execute(queries.get_user)
+            cursor.execute(queries.get_user, [user_id])
             results = DBManager.named_tuple_fetchall(cursor)
 
             if results is None:
