@@ -6,7 +6,8 @@ from accounts import views
 urlpatterns = [
     path(r'', views.sign_in_view, name='home'),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path(r'listing/', include('listing.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

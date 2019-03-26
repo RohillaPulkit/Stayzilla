@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
-    'accounts'
+    'listing',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -75,15 +76,20 @@ WSGI_APPLICATION = 'stayzilla.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#     'ENGINE':   'django.db.backends.oracle',
+#     'NAME':     'oracle.cise.ufl.edu/orcl',
+#     'USER':     'prohilla',
+#     'PASSWORD': 'm0del123#',
+#   }
+# }
 DATABASES = {
     'default': {
-    'ENGINE':   'django.db.backends.oracle',
-    'NAME':     'oracle.cise.ufl.edu/orcl',
-    'USER':     'prohilla',
-    'PASSWORD': 'm0del123#',
-  }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
