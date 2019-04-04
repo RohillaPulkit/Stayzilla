@@ -54,3 +54,13 @@ body {
     color: white;
     background-color: transparent;
 }
+
+.alert {
+    width: 100%;
+}
+
+mark{
+    background-color:transparent;
+    color: #00bcd4;
+    font-size: 18px;
+}

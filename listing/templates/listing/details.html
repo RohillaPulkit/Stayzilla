@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="price-trend nav-scroller shadow row justify-content-center align-items-center">
+    <div class="col">
+          <ul class="pagination mb-1">
+            <li class="page-item">
+              <a class="page-link" href="#">
+               <i class="fas fa-caret-left fa-3x"></i>
+              </a>
+            </li>
+            {% for i in previous_price_trend %}
+                <li class="page-item">
+                    <div class="card ml-1 mr-1 text-center" >
+                        <div class="card-header">
+                            05/06/2019
+                        </div>
+                        <div class="card-body">
+                        <p class="card-text">$ Price</p>
+                        </div>
+                    </div>
+                </li>
+              {% endfor %}
+            <li class="page-item">
+              <a class="page-link" href="#">
+                  <i class="fas fa-caret-right fa-3x"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+    <div class="col-1 text-center">
+            <p><strong>Weekly<br/>Price<br/>Trend</strong></p>
+        </div>
+    <div class="col">
+          <ul class="pagination mb-1">
+            <li class="page-item">
+              <a class="page-link" href="#">
+               <i class="fas fa-caret-left fa-3x"></i>
+              </a>
+            </li>
+            {% for i in next_price_trend %}
+                <li class="page-item">
+                    <div class="card ml-1 mr-1 text-center" >
+                        <div class="card-header">
+                            05/06/2019
+                        </div>
+                        <div class="card-body">
+                        <p class="card-text">$ Price</p>
+                        </div>
+                    </div>
+                </li>
+              {% endfor %}
+            <li class="page-item">
+              <a class="page-link" href="#">
+                  <i class="fas fa-caret-right fa-3x"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+</div>
+<div class="row m-3">
+    <div class="col">
+        <div class="row mt-1">
+            <div class="col-4">
+                <div class="card shadow-sm">
+                    <img class="card-img" src="https://thundervalleyresort.com/TVCR/media/TVCR/Hotel/Rooms/Deluxe%20King/deluxe_king1.jpg">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card shadow-sm">
+                    <img class="card-img" src="https://alphahoteleasterncreek.com.au/wp-content/uploads/2015/08/Alpha-Hotel-Eastern-Creek-Club-Hotel-Room.jpg">
+                </div>            </div>
+            <div class="col-4">
+                <div class="card shadow-sm">
+                    <img class="card-img" src="https://amp.businessinsider.com/images/5527f47fdd0895c44f8b459e-750-422.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div>
+                    <span class="fa fa-star checked fa-2x"></span>
+                    <span class="fa fa-star checked fa-2x"></span>
+                    <span class="fa fa-star checked fa-2x"></span>
+                    <span class="fa fa-star checked fa-2x"></span>
+                    <span class="fa fa-star fa-2x"></span>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="float-right">
+                 <span class="text-center"> Host Name  <i class="fa fa-user-circle fa-2x ml-2"></i> </span>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 ml-1">
+            <span class="text-justify">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Egestas diam in arcu cursus euismod. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Etiam dignissim diam quis enim lobortis scelerisque. Quis hendrerit dolor magna eget est lorem. Amet tellus cras adipiscing enim. Vel facilisis volutpat est velit. Ac turpis egestas sed tempus urna et pharetra pharetra massa. Sit amet mauris commodo quis imperdiet massa. Placerat duis ultricies lacus sed turpis tincidunt id aliquet. Aliquet risus feugiat in ante metus dictum at. Ut ornare lectus sit amet. Ultrices tincidunt arcu non sodales neque sodales ut etiam.
+                Nullam ac tortor vitae purus faucibus ornare. Purus sit amet luctus venenatis. Eu facilisis sed odio morbi quis commodo odio aenean. Vulputate eu scelerisque felis imperdiet proin. Platea dictumst quisque sagittis purus. Maecenas sed enim ut sem viverra aliquet eget sit. Amet dictum sit amet justo donec enim diam. Neque convallis a cras semper auctor neque. Cursus vitae congue mauris rhoncus aenean vel elit. Convallis aenean et tortor at. Volutpat est velit egestas dui id ornare. Posuere morbi leo urna molestie. Tempus imperdiet nulla malesuada pellentesque elit. Cursus eget nunc scelerisque viverra mauris in. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Ligula ullamcorper malesuada proin libero nunc consequat interdum.
+            </span>
+        </div>
+    </div>
+    <div class="col-3 ml-3" >
+    <div class="card" style="background-color: gray">
+        <div class="card-body">
+            <div class="row">
+           <div class="col text-white">
+               Dates
+           </div>
+           </div>
+            <div class="row mt-2 mb-2">
+               <div class="col text-center">
+                   <div class="border border-white rounded">
+                       <div class="row">
+                           <div class="col">
+                               <button class="btn check-in-out bg-transparent btn-md w-100 text-white">Check-In</button>
+                           </div>
+                           <span class="d-flex justify-content-center align-items-center"><i class="fas fa-exchange-alt  text-white"></i></span>
+                            <div class="col">
+                               <button class="btn check-in-out bg-transparent btn-md w-100  text-white">Check-Out</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div class="row">
+               <div class="col text-white">
+                   Number of guests
+               </div>
+           </div>
+            <div class="row mt-2">
+               <div class="col">
+                   <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                            <button class="btn btn-outline-light btn-sm" id="minus-btn"><i class="fa fa-minus"></i></button>
+                        </div>
+                        <input type="number" id="qty_input" class="form-control form-control-sm guest-box text-center text-white p-2" value="1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-light btn-sm" id="plus-btn"><i class="fa fa-plus"></i></button>
+                        </div>
+                   </div>
+               </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col text-white text-center">
+                    Price Breakup
+                </div>
+            </div>
+        </div>
+        <div class="card-footer border-0 bg-transparent">
+              <div class="container d-flex justify-content-center p-0">
+                  <button type="button" class="btn book-btn book w-100">Book</button>
+              </div>
+       </div>
+    </div>
+</div>
+</div>
+<div class="row m-3">
+    <div class="col ml-1">
+        <strong>Best Time To Visit</strong>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col ml-1">
+        <strong>Amenities</strong>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col-4 ml-1">
+        <strong>Availability</strong>
+        <div style="overflow:hidden;">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-8">
+                <div id="datetimepicker12"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker12').datetimepicker({
+                inline: true,
+                sideBySide: true
+            });
+        });
+    </script>
+</div>
+    </div>
+    <div class="col-7">
+        <strong>Popularity Trend</strong>
+        <br/>
+        <canvas id="bar_chart"></canvas>
+    </div>
+</div>
+<div class="row m-3">
+<div class="col">
+    <strong>Reviews</strong>
+    <div>
+        <span class="lead">Reviewer</span>
+        <br/>
+        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum nunc. Commodo viverra maecenas accumsan lacus vel facilisis volutpat. Risus nullam eget felis eget nunc lobortis mattis aliquam. Placerat duis ultricies lacus sed turpis tincidunt id. Tristique et egestas quis ipsum. Consequat semper viverra nam libero. Dolor morbi non arcu risus quis varius quam quisque. Cursus eget nunc scelerisque viverra mauris. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Dignissim diam quis enim lobortis scelerisque fermentum dui. Nisl pretium fusce id velit ut. Felis donec et odio pellentesque diam. Adipiscing tristique risus nec feugiat in fermentum posuere urna. Morbi leo urna molestie at elementum. Curabitur gravida arcu ac tortor dignissim convallis aenean et. Massa sapien faucibus et molestie ac feugiat sed.
+            Faucibus vitae aliquet nec ullamcorper sit. Semper quis lectus nulla at volutpat diam. Enim nec dui nunc mattis enim ut tellus elementum sagittis. Erat nam at lectus urna duis convallis convallis. Massa sed elementum tempus egestas sed sed risus pretium quam. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Tincidunt dui ut ornare lectus. Eget mauris pharetra et ultrices neque. Faucibus turpis in eu mi bibendum. Dignissim suspendisse in est ante in nibh mauris cursus mattis. Vivamus at augue eget arcu dictum varius duis at consectetur. Mauris cursus mattis molestie a iaculis at erat pellentesque.</p>
+    </div>
+</div>
+</div>
+{% endblock %}

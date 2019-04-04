@@ -3,7 +3,6 @@
     Sign Up
 {% endblock %}
 {% block content %}
-
     <form class="form-account" action="{% url 'accounts:signup'  %}" method="post">
         {% csrf_token %}
         <h1 class="h2 mb-4 font-weight-normal text-white">
@@ -16,6 +15,17 @@
             <input type="hidden" name="next" value="{{ request.GET.next }}">
         {% endif %}
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-    <a href="{% url "accounts:signin" %}"><button type="button" class="btn btn-link">Already have an account? Sign In</button></a>
+        <a href="{% url "accounts:signin" %}"><button type="button" class="btn btn-link">Already have an account?<mark>Sign In</mark></button></a>
     </form>
+{% endblock %}
+
+{% block alert %}
+    {% for error in form.non_field_errors %}
+    <div class="fixed-top m-1">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"> x </button>
+            {{ error }}
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

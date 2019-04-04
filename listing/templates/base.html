@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'base/css.html' %}
+    {% include 'base/js.html' %}
+
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+           Listing Details
+        {% endblock %}
+    </title>
+
+    {% block scripts %}
+    {% endblock %}
+    {% block stylesheets %}
+    {% endblock %}
+
+</head>
+</head>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="#"><img src={% static "images/logo.png" %} height="34"> </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+      <p class="navbar-nav mr-auto text-white lead">Listing Title, Location</p>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Become a host</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Help</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">
+            <img src={% static "images/user.png" %} width="34 height="34">
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid">
+{#<div class="row">#}
+     {% block content %}
+        {% endblock %}
+{#</div>#}
+
+
+        {% block alert %}
+        {% endblock %}
+</div>
+
+</body>
+</html>
