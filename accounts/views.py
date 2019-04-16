@@ -12,8 +12,7 @@ def sign_in_view(request):
         if sign_in_form.is_valid():
             user = sign_in_form.get_user()
             login(request, user)
-
-            return HttpResponse("User Success")
+            return redirect("listing:search")
         else:
             return render(request, "accounts/signin.html", {"form": sign_in_form})
     else:
