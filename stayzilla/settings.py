@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'listing',
-    'accounts',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'stayzilla.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['listing/templates', 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,24 +72,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'stayzilla.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#     'ENGINE':   'django.db.backends.oracle',
-#     'NAME':     'oracle.cise.ufl.edu/orcl',
-#     'USER':     'prohilla',
-#     'PASSWORD': 'm0del123#',
-#   }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'ENGINE':   'django.db.backends.oracle',
+    'NAME':     'oracle.cise.ufl.edu/orcl',
+    'USER':     'prohilla',
+    'PASSWORD': 'R0ht@k123#',
+    'USE_MIGRATION': False
+  }
 }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -108,6 +104,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'accounts.backend.AuthenticationBackend'
+]
+
+AUTH_USER_MODEL = 'accounts.Users'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

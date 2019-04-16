@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from .dbmanager import DBManager
+from accounts.database.dbmanager import DBManager
 
 
 class AuthenticationBackend(ModelBackend):
