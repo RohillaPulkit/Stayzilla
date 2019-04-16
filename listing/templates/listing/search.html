@@ -18,7 +18,7 @@
 </head>
 <body >
        {% block content %}
-            <form class="form-search" action="{% url 'listing:search'  %}" method="post" >
+            <form class="form-search" action="{% url 'listing:results'  %}" method="post" >
         {% csrf_token %}
         <h1 class="h2 mb-4 font-weight-normal text-white h1test">
             Search
