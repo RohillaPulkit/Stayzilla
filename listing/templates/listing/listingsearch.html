@@ -1,1 +1,41 @@
-{% extends "listing/base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+            Search
+    </title>
+
+    <link href="{% static "stylesheets/search.css" %}" rel="stylesheet">
+
+
+</head>
+<body >
+       {% block content %}
+            <form class="form-search" action="{% url 'listing:search'  %}" method="post" >
+        {% csrf_token %}
+        <h1 class="h2 mb-4 font-weight-normal text-white h1test">
+            Search
+        </h1>
+
+                {% for field in searchform %}
+                     {{ field }}
+                {% endfor %}
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+            </form>
+
+        {%  endblock %}
+
+        {% block alert %}
+
+        {% endblock %}
+
+</body>
+</html>

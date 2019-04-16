@@ -1,9 +1,16 @@
 from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
 
+from .forms import SearchForm
 
-def index(request):
-   return render(request,'listing/listingsearch.html')
+def search_listing(request):
 
+    form = SearchForm()
+
+    return render(request,'listing/listingsearch.html', {"searchform":form})
+
+def search_result(request):
+    return render(request, 'listing/listingresult.html', None)
 
 def get_details(request):
    return render(request,'listing/details.html', {'previous_price_trend': range(0, 4),
