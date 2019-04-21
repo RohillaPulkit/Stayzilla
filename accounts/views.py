@@ -1,11 +1,18 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth import login
 
 from accounts.forms import SignInForm, SignUpForm
 from accounts.database.dbmanager import DBManager
 
+# from listing.database.dbmanager import DBManager as ListingDBManager
+# from listing.models import Booking
+#
+# import random
+# import datetime
+
 
 def sign_in_view(request):
+    # generate_booking_data()
     if request.method == "POST":
         sign_in_form = SignInForm(data=request.POST)
 
@@ -41,72 +48,48 @@ def signup_view(request):
         return render(request, "accounts/signup.html", {"form": sign_up_form})
 
 
-
-# listing_ids = DBManager.get_listing_id()
-# customer_ids = DBManager.get_customer_id()
 # Code To Generate Random Bookings
+
+
+# listing_ids = ListingDBManager.get_listing_id()
+# customer_ids = DBManager.get_customer_id()
+#
 #
 # def generate_booking_data():
 #     main_list = []
-#     booking_id = 599186
+#     booking_id = 889433
 #
-#     # booking = generate_booking(1, 346911)
-#     # DBManager.add_booking(booking)
+#     last_date_string = "1/1/2018"
+#     last__date = datetime.datetime.strptime(last_date_string, "%m/%d/%Y")
+#
+#     check_in_date_string = "1/1/2017"
+#     check_in_date = datetime.datetime.strptime(check_in_date_string, "%m/%d/%Y")
+#
 #     for listing_id in listing_ids:
 #         bookings = []
-#         max_loop = random.randint(5, 10)
-#         for i in range(1, max_loop):
-#             booking = generate_booking(booking_id, listing_id)
-#             incorrect = [oldBooking for oldBooking in bookings
-#                          if
-#                          oldBooking.check_in <= booking.check_in <= oldBooking.check_out or
-#                          oldBooking.check_in <= booking.check_out <= oldBooking.check_out]
-#             while len(incorrect) > 0:
-#                 booking = generate_booking(booking_id, listing_id)
-#                 incorrect = [oldBooking for oldBooking in bookings
-#                              if
-#                              oldBooking.check_in <= booking.check_in <= oldBooking.check_out or
-#                              oldBooking.check_in <= booking.check_out <= oldBooking.check_out]
-#             bookings.append(booking)
-#             booking_id += 1
+#         while check_in_date < last__date:
+#             add_booking = random.choice([True, False])
+#
+#             if add_booking:         # Add Booking If True
+#                 number_of_booking_days = random.randint(1, 10)
+#
+#                 check_out_date = check_in_date + datetime.timedelta(days=number_of_booking_days)
+#                 customer_id = random.choice(customer_ids)
+#                 price = (random.randint(100, 500)) * number_of_booking_days
+#                 number_of_guests = random.randint(1, 10)
+#
+#                 booking = Booking(booking_id, listing_id, customer_id, check_in_date, check_out_date,
+#                                   price, number_of_guests)
+#                 bookings.append(booking)
+#
+#                 booking_id += 1
+#                 check_in_date = check_out_date + datetime.timedelta(days=1)
+#             else:
+#                 number_of_skipping_days = random.randint(10, 20)
+#                 check_in_date = check_in_date + datetime.timedelta(days=number_of_skipping_days)
 #
 #         main_list.extend(bookings)
+#         check_in_date = datetime.datetime.strptime(check_in_date_string, "%m/%d/%Y")
 #
 #     print("SIZE : "+str(len(main_list)))
-#     DBManager.add_booking(main_list)
-#
-# def generate_booking(booking_id, listing_id):
-#     customer_id = random.choice(customer_ids)
-#     number_of_days = random.randint(1, 10)
-#     checkin = randomDate("1/1/2018", "3/1/2019", random.random())
-#     checkin_date = datetime.datetime.strptime(checkin, "%m/%d/%Y")
-#     checkout = checkin_date + datetime.timedelta(days=number_of_days)
-#     #
-#     # print(checkin_date)
-#     # print(checkout)
-#
-#     price = (random.randint(100, 500)) * number_of_days
-#     number_of_guests = random.randint(1, 10)
-#     booking = Booking(booking_id, listing_id, customer_id, checkin_date, checkout, price, number_of_guests)
-#
-#     # print(booking)
-#     return booking
-#
-# def strTimeProp(start, end, format, prop):
-#     """Get a time at a proportion of a range of two formatted times.
-#
-#     start and end should be strings specifying times formated in the
-#     given format (strftime-style), giving an interval [start, end].
-#     prop specifies how a proportion of the interval to be taken after
-#     start.  The returned time will be in the specified format.
-#     """
-#
-#     stime = time.mktime(time.strptime(start, format))
-#     etime = time.mktime(time.strptime(end, format))
-#
-#     ptime = stime + prop * (etime - stime)
-#
-#     return time.strftime(format, time.localtime(ptime))
-#
-# def randomDate(start, end, prop):
-#     return strTimeProp(start, end, '%m/%d/%Y', prop)
+#     ListingDBManager.add_booking(main_list)

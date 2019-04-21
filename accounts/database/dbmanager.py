@@ -4,6 +4,7 @@ from collections import namedtuple
 from accounts.models import Users
 from accounts.database import dbqueries
 
+
 class DBManager:
 
     @staticmethod
@@ -24,7 +25,7 @@ class DBManager:
             cursor.execute(dbqueries.get_user_id)
 
             results = DBManager.named_tuple_fetchall(cursor)
-            user_id = results[0].User_ID
+            user_id = results[0].USER_ID
 
             if user_id is None:
                 return False
@@ -36,6 +37,9 @@ class DBManager:
             obj, = error.args
             print("Context:", obj.context)
             print("Message:", obj.message)
+            return False
+        except Exception as error:
+            print(error)
             return False
         finally:
             cursor.close()
@@ -92,60 +96,6 @@ class DBManager:
             cursor.close()
 
     @staticmethod
-    def add_booking(bookings):
-        rows = []
-        for booking in bookings:
-            id = booking.id
-            listing_id = booking.listing_id
-            customer_id = booking.customer_id
-            check_in = booking.check_in
-            check_out = booking.check_out
-            price = booking.price
-            number_of_guests = booking.number_of_guests
-            row = {'1': id,
-                   '2': listing_id,
-                   '3': customer_id,
-                   '4': check_in,
-                   '5': check_out,
-                   '6': price,
-                   '7': number_of_guests}
-            rows.append(row)
-
-        cursor = connection.cursor()
-        try:
-            print("Inserting values")
-            # cursor.prepare(dbqueries.insert_booking)
-            cursor.executemany(dbqueries.insert_booking, rows)
-            connection.commit()
-        except ConnectionError as ex:
-            obj, = ex.args
-            print("Context:", obj.context)
-            print("Message:", obj.message)
-        finally:
-            cursor.close()
-
-
-    @staticmethod
-    def get_listing_id():
-        cursor = connection.cursor()
-        try:
-            cursor.execute(dbqueries.get_listing_id)
-            results = DBManager.named_tuple_fetchall(cursor)
-
-            if results is None:
-                return None
-            else:
-                listing_ids = []
-                for dict in results:
-                    listing_ids.append(dict.LISTINGID)
-                return listing_ids
-        except Exception as error:
-            return None
-        finally:
-            cursor.close()
-
-
-    @staticmethod
     def get_customer_id():
         cursor = connection.cursor()
         try:
@@ -157,7 +107,7 @@ class DBManager:
             else:
                 customer_ids = []
                 for dict in results:
-                    customer_ids.append(dict.CUSTOMERID)
+                    customer_ids.append(dict.CUSTOMER_ID)
                 return customer_ids
         except Exception as error:
             return None
