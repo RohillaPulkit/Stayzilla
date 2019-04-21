@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -80,11 +79,9 @@ DATABASES = {
     'ENGINE':   'django.db.backends.oracle',
     'NAME':     'oracle.cise.ufl.edu/orcl',
     'USER':     'prohilla',
-    'PASSWORD': 'R0ht@k123#',
-    'USE_MIGRATION': False
-  }
+    'PASSWORD': 'm0del123'
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -121,7 +118,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
