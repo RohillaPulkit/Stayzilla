@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title> DASHBOARD</title>
+        {%  include 'dashboard/css.html' %}
+        {%  include 'dashboard/bootstrap.html' %}
+
+    </head>
+    <body>
+
+<div class='container'>
+        {% block content %}
+     <div class='row'>
+            <div class="col-sm-6">
+            <h1 align="center">Monthly listings</h1>
+            <canvas id="myChart" width="400" height="400"></canvas>
+
+            </div>
+        <div class="col-sm-6">
+            <h1 align="center"> Location statistics </h1>
+            <table id="myTable" border="1" class="table"></table>
+
+        </div>
+     </div>
+
+  <div class="container", style="background: #e8e8e8; height: 200px">
+
+          <div class="row">
+              <h2 align="center"> This is title</h2>
+          </div>
+          <div class='row'>
+              <div class="col-sm-4"> This is column 1</div>
+              <div class="col-sm-4">This is column 2</div>
+              <div class="col-sm-4"> This is column 3</div>
+
+
+          </div>
+
+
+</div>
+    <div class='row'>
+    <div class="col-sm-12">
+        <h1 align="center">Welcome to stayzilla</h1>
+        <canvas id="chart2" width="400" height="400"></canvas>
+    </div>
+
+
+</div>
+
+        {%  endblock content %}
+        </div>
+
+        <script>
+     $(document).ready(function(){
+            {%  include 'dashboard/js.html' %}
+            {%  include 'dashboard/charts.html' %}
+     })
+     </script>
+    </body>
+</html>

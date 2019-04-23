@@ -1,0 +1,28 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></script>
+
+<script>
+    var endpoint = "{%  url "dashboard:table_data"  %}";
+
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function (body) {
+            $('#myTable').empty();
+            $('#myTable').append(body);
+            console.log("success");
+        },
+        error: function (error_data) {
+
+            $('#myTable').empty();
+
+            console.log("error")
+            console.log(error_data)
+        }
+    });
+</script>

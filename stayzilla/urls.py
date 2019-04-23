@@ -6,6 +6,7 @@ urlpatterns = [
     path(r'', views.sign_in_view, name='home'),
     path('accounts/', include('accounts.urls')),
     path('listing/', include('listing.urls')),
+    path('dashboard/', include('dashboard.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
