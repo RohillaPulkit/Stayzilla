@@ -1,0 +1,62 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+
+}
+
+.navbar-nav li a {
+ line-height: 34px;
+}
+
+.page-link, .page-link:hover, .page-link:focus{
+    color: #00bcd4 !important;
+    border-width: 0;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+}
+.page-link:active{
+    color: #0f98d4 !important;
+    border-width: 0;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+}
+
+.price-trend{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.card{
+    border-radius: 10px;
+}
+.card img {
+  object-fit: cover;
+  width:100%;
+  height:300px;
+}
+
+.checked {
+  color: #00bcd4;
+}
+
+.invert { filter: invert(100%); }
+
+.book-btn{
+      background-color:  #00bcd4;
+    color: white;
+}
+
+.guest-box{
+    background-color: transparent !important;
+}
+
+.check-in-out, .check-in-out:hover, .check-in-out:focus{
+    border-width: 0;
+    box-shadow: 0 0 0 0;
+}

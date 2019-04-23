@@ -1,8 +1,9 @@
 from django.db import connection
 from django.db.utils import IntegrityError
 from collections import namedtuple
-from . import queries
-from .models import Users
+from accounts.models import Users
+from accounts.database import dbqueries
+
 
 class DBManager:
 
@@ -21,23 +22,24 @@ class DBManager:
             last_name = user.get('last_name')
             password = user.get('password')
 
-            cursor.execute(queries.get_user_id)
+            cursor.execute(dbqueries.get_user_id)
 
             results = DBManager.named_tuple_fetchall(cursor)
-            user_id = results[0].User_ID
+            user_id = results[0].USER_ID
 
             if user_id is None:
                 return False
 
-            cursor.execute("INSERT INTO "
-                           "USERS(User_ID, Password, Email_Address, First_Name, Last_Name)"
-                           "VALUES(%s, %s, %s, %s, %s)",
+            cursor.execute(dbqueries.insert_user,
                            [user_id, password, email_address, first_name, last_name])
             return True
         except IntegrityError as error:
             obj, = error.args
             print("Context:", obj.context)
             print("Message:", obj.message)
+            return False
+        except Exception as error:
+            print(error)
             return False
         finally:
             cursor.close()
@@ -46,7 +48,7 @@ class DBManager:
     def authenticate_user(email_address, password):
         cursor = connection.cursor()
         try:
-            cursor.execute(queries.authenticate_user, [email_address, password])
+            cursor.execute(dbqueries.authenticate_user, [email_address, password])
             results = DBManager.named_tuple_fetchall(cursor)
 
             if len(results) == 0:
@@ -71,7 +73,7 @@ class DBManager:
     def get_user(user_id):
         cursor = connection.cursor()
         try:
-            cursor.execute(queries.get_user, [user_id])
+            cursor.execute(dbqueries.get_user, [user_id])
             results = DBManager.named_tuple_fetchall(cursor)
 
             if results is None:
@@ -88,6 +90,25 @@ class DBManager:
                 user.last_name = dict_user.LAST_NAME
                 user.is_admin = dict_user.IS_ADMIN
                 return user
+        except Exception as error:
+            return None
+        finally:
+            cursor.close()
+
+    @staticmethod
+    def get_customer_id():
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_customer_id)
+            results = DBManager.named_tuple_fetchall(cursor)
+
+            if results is None:
+                return None
+            else:
+                customer_ids = []
+                for dict in results:
+                    customer_ids.append(dict.CUSTOMER_ID)
+                return customer_ids
         except Exception as error:
             return None
         finally:

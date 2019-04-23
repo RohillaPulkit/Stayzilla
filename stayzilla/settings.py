@@ -27,16 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'listing',
     'accounts'
 ]
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'stayzilla.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['listing/templates', 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,12 +76,11 @@ WSGI_APPLICATION = 'stayzilla.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.oracle',
-        'NAME':     'oracle.cise.ufl.edu/orcl',
-        'USER':     'prohilla',
-        'PASSWORD': 'R0ht@k123#',
-        'USE_MIGRATIONS': False,
-  }
+    'ENGINE':   'django.db.backends.oracle',
+    'NAME':     'oracle.cise.ufl.edu/orcl',
+    'USER':     'prohilla',
+    'PASSWORD': 'm0del123'
+    }
 }
 
 # Password validation
@@ -118,7 +118,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

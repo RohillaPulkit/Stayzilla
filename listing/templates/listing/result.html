@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+{#  <a class="navbar-brand" href="#">Navbar</a>#}
+{#  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#    <span class="navbar-toggler-icon"></span>#}
+{#  </button>#}
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0 w-50">
+      <input class="form-control mr-lg-2 " type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0 w-25" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav mr-auto nav-fill w-50">
+
+      <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Price
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Less than $100</a>
+          <a class="dropdown-item" href="#">$100 to $500</a>
+            <a class="dropdown-item" href="#">$500 to $1000</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">More than 1000</a>
+        </div>
+      </li>
+
+        <li class="nav-item dropdown active ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Number of Guests
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">1</a>
+          <a class="dropdown-item" href="#">2</a>
+            <a class="dropdown-item" href="#">3</a>
+            <a class="dropdown-item" href="#">4</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">More than 4</a>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+</nav>
+
+
+<div class ="container">
+<div class="row">
+    <div class="col-3">
+        <div class="card" style="width: 10rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="{% url "listing:details" %}" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    </div>
+    <div class="col-3">
+        <div class="card" style="width: 10rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    </div>
+    <div class="col-3">
+        <div class="card" style="width: 10rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    </div>
+    <div class="col-3">
+        <div class="card" style="width: 10rem;">
+        <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+
+    </div>
+
+
+</div>
+
+</div>
+
+
+
+
+{#   <div class="nav-scroller shadow row ">#}
+{#   <ul class="nav nav-pills">#}
+{#       <li class="nav-item dropdown">#}
+{#    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Number of guests</a>#}
+{#    <div class="dropdown-menu">#}
+{#      <a class="dropdown-item" href="#">1</a>#}
+{#      <a class="dropdown-item" href="#">2</a>#}
+{#      <a class="dropdown-item" href="#">3</a>#}
+{#    </div>#}
+{##}
+{#  </li>#}
+{##}
+{#  <li class="nav-item dropdown">#}
+{#    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Price</a>#}
+{#    <div class="dropdown-menu">#}
+{#      <a class="dropdown-item" href="#">$500</a>#}
+{#      <a class="dropdown-item" href="#">$500-$1000</a>#}
+{#      <a class="dropdown-item" href="#">More than $1000</a>#}
+{#    </div>#}
+{##}
+{#  </li>#}
+{##}
+{##}
+{##}
+{#</ul>#}
+{#    </div>#}
+{#    <nav aria-label="Page navigation example">#}
+{#  <ul class="pagination justify-content-center">#}
+{#    <li class="page-item disabled">#}
+{#      <a class="page-link" href="#" tabindex="-1">Previous</a>#}
+{#    </li>#}
+{#    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#    <li class="page-item">#}
+{#      <a class="page-link" href="#">Next</a>#}
+{#    </li>#}
+{#  </ul>#}
+{#</nav>#}
+
+{% endblock %}
