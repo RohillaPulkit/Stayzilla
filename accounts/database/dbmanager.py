@@ -22,16 +22,8 @@ class DBManager:
             last_name = user.get('last_name')
             password = user.get('password')
 
-            cursor.execute(dbqueries.get_user_id)
-
-            results = DBManager.named_tuple_fetchall(cursor)
-            user_id = results[0].USER_ID
-
-            if user_id is None:
-                return False
-
             cursor.execute(dbqueries.insert_user,
-                           [user_id, password, email_address, first_name, last_name])
+                           [password, email_address, first_name, last_name])
             return True
         except IntegrityError as error:
             obj, = error.args
