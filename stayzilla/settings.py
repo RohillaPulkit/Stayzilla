@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'listing',
     'accounts',
-    'dashboard'
+    'dashboard',
+    'host'
 ]
 
 MIDDLEWARE = [
