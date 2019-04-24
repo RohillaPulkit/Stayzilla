@@ -1,6 +1,7 @@
 from django.db import connection
 from collections import namedtuple
 from listing.database import dbqueries
+from listing.models import Listing, Review
 
 
 class DBManager:
@@ -11,12 +12,51 @@ class DBManager:
         nt_result = namedtuple('Result', [col[0] for col in desc])
         return [nt_result(*row) for row in cursor.fetchall()]
 
+    @staticmethod
+    def get_listing_for_id(id):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_listing_for_id, [id, id])
+            results = DBManager.named_tuple_fetchall(cursor)
+
+            if len(results) == 0:
+                return None
+            else:
+                dict_listing = results[0]
+
+                listing_id = dict_listing.ID
+                host_id = dict_listing.HOST_ID
+                host_name = dict_listing.HOST_NAME
+                name = dict_listing.NAME
+                description = dict_listing.DESCRIPTION
+                house_rules = dict_listing.HOUST_RULES
+                accommodates = dict_listing.ACCOMMODATES
+                cancellation_policy = dict_listing.CANCELLATION_POLICY
+                room_type = dict_listing.ROOM_TYPE
+                property_type = dict_listing.PROPERTY_TYPE
+                amenities = dict_listing.AMENITIES
+                picture_url = dict_listing.PICTURE_URL
+                latitude = dict_listing.LATITUDE
+                longitude = dict_listing.LONGITUDE
+                city = dict_listing.CITY
+                street = dict_listing.STREET
+                state = dict_listing.STATE
+                zip_code = dict_listing.ZIP_CODE
+                score = dict_listing.SCORE
+
+                listing = Listing(listing_id, host_id, host_name, name, description, house_rules, accommodates,
+                                  cancellation_policy, room_type, property_type, amenities, picture_url,
+                                  latitude, longitude, city, street, state, zip_code, score)
+
+                return listing
+        finally:
+            cursor.close()
 
     @staticmethod
     def get_listing_id():
         cursor = connection.cursor()
         try:
-            cursor.execute(dbqueries.get_listing_id)
+            cursor.execute(dbqueries.get_listing_ids)
             results = DBManager.named_tuple_fetchall(cursor)
 
             if results is None:
@@ -26,6 +66,53 @@ class DBManager:
                 for dict in results:
                     listing_ids.append(dict.ID)
                 return listing_ids
+        except Exception as error:
+            print(error)
+            return None
+        finally:
+            cursor.close()
+
+    @staticmethod
+    def get_reviews(listing_id):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_listing_reviews, [listing_id])
+            results = DBManager.named_tuple_fetchall(cursor)
+            if results is None:
+                return None
+            else:
+                reviews = []
+                for dict_review in results:
+                    id = dict_review.ID
+                    listing_id = dict_review.LISTING_ID
+                    reviewer_id = dict_review.REVIEWER_ID
+                    reviewer_name = dict_review.REVIEWER_NAME
+                    date = dict_review.REVIEW_DATE
+                    score = dict_review.SCORE
+                    comments = dict_review.COMMENTS
+                    review = Review(id, listing_id, reviewer_id, reviewer_name, date, score, comments)
+                    reviews.append(review)
+                return reviews
+        except Exception as error:
+            print(error)
+            return None
+        finally:
+            cursor.close()
+
+    @staticmethod
+    def get_popularity_trend(listing_id):
+        cursor = connection.cursor()
+        try:
+            # print(dbqueries.get_popularity_trend)
+            cursor.execute(dbqueries.get_popularity_trend, [listing_id])
+            results = DBManager.named_tuple_fetchall(cursor)
+            if results is None:
+                return None
+            else:
+                bookings = []
+                for dict_booking in results:
+                    bookings.append(dict_booking)
+                return bookings
         except Exception as error:
             print(error)
             return None

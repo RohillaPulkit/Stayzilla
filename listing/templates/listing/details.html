@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block scripts %}
+    {% include 'listing/js.html' %}
+{% endblock %}
+
 {% block content %}
 <div class="price-trend nav-scroller shadow row justify-content-center align-items-center">
     <div class="col">
@@ -65,39 +69,36 @@
         <div class="row mt-1">
             <div class="col-4">
                 <div class="card shadow-sm">
-                    <img class="card-img" src="https://thundervalleyresort.com/TVCR/media/TVCR/Hotel/Rooms/Deluxe%20King/deluxe_king1.jpg">
+                    <img class="card-img" src="{{ listing.picture_url }}">
                 </div>
             </div>
             <div class="col-4">
                 <div class="card shadow-sm">
-                    <img class="card-img" src="https://alphahoteleasterncreek.com.au/wp-content/uploads/2015/08/Alpha-Hotel-Eastern-Creek-Club-Hotel-Room.jpg">
-                </div>            </div>
-            <div class="col-4">
-                <div class="card shadow-sm">
-                    <img class="card-img" src="https://amp.businessinsider.com/images/5527f47fdd0895c44f8b459e-750-422.jpg">
+                    <img class="card-img" src="https://i.pinimg.com/originals/26/b3/c7/26b3c75f0db2991d7f795f6b9a8c2fc5.jpg">
                 </div>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col">
                 <div>
-                    <span class="fa fa-star checked fa-2x"></span>
-                    <span class="fa fa-star checked fa-2x"></span>
-                    <span class="fa fa-star checked fa-2x"></span>
-                    <span class="fa fa-star checked fa-2x"></span>
-                    <span class="fa fa-star fa-2x"></span>
+                    {% for i in i|rjust:5 %}
+                        {% if forloop.counter <= listing.score %}
+                            <span class="fa fa-star checked fa-2x"></span>
+                        {% else %}
+                            <span class="fa fa-star fa-2x"></span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-4">
                 <div class="float-right">
-                 <span class="text-center"> Host Name  <i class="fa fa-user-circle fa-2x ml-2"></i> </span>
+                 <span class="text-center"> {{ listing.host_name }}  <i class="fa fa-user-circle fa-2x ml-2"></i> </span>
                 </div>
             </div>
         </div>
         <div class="row mt-3 ml-1">
             <span class="text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Egestas diam in arcu cursus euismod. Risus nullam eget felis eget nunc lobortis mattis aliquam faucibus. Etiam dignissim diam quis enim lobortis scelerisque. Quis hendrerit dolor magna eget est lorem. Amet tellus cras adipiscing enim. Vel facilisis volutpat est velit. Ac turpis egestas sed tempus urna et pharetra pharetra massa. Sit amet mauris commodo quis imperdiet massa. Placerat duis ultricies lacus sed turpis tincidunt id aliquet. Aliquet risus feugiat in ante metus dictum at. Ut ornare lectus sit amet. Ultrices tincidunt arcu non sodales neque sodales ut etiam.
-                Nullam ac tortor vitae purus faucibus ornare. Purus sit amet luctus venenatis. Eu facilisis sed odio morbi quis commodo odio aenean. Vulputate eu scelerisque felis imperdiet proin. Platea dictumst quisque sagittis purus. Maecenas sed enim ut sem viverra aliquet eget sit. Amet dictum sit amet justo donec enim diam. Neque convallis a cras semper auctor neque. Cursus vitae congue mauris rhoncus aenean vel elit. Convallis aenean et tortor at. Volutpat est velit egestas dui id ornare. Posuere morbi leo urna molestie. Tempus imperdiet nulla malesuada pellentesque elit. Cursus eget nunc scelerisque viverra mauris in. Adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla. Ligula ullamcorper malesuada proin libero nunc consequat interdum.
+               {{ listing.formatted_description }}
             </span>
         </div>
     </div>
@@ -163,7 +164,7 @@
 </div>
 <div class="row m-3">
     <div class="col ml-1">
-        <strong>Amenities</strong>
+        <span class="text-justify"><strong>Amenities </strong>{{ listing.cleaned_amenities }}</span>
     </div>
 </div>
 <div class="row m-3">
@@ -178,30 +179,22 @@
         </div>
     </div>
     <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker12').datetimepicker({
-                inline: true,
-                sideBySide: true
-            });
-        });
     </script>
 </div>
     </div>
     <div class="col-7">
         <strong>Popularity Trend</strong>
         <br/>
+        <div class="m-3">
         <canvas id="bar_chart"></canvas>
+        </div>
     </div>
 </div>
 <div class="row m-3">
-<div class="col">
-    <strong>Reviews</strong>
-    <div>
-        <span class="lead">Reviewer</span>
-        <br/>
-        <p class="text-justify"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel turpis nunc eget lorem dolor sed viverra ipsum nunc. Commodo viverra maecenas accumsan lacus vel facilisis volutpat. Risus nullam eget felis eget nunc lobortis mattis aliquam. Placerat duis ultricies lacus sed turpis tincidunt id. Tristique et egestas quis ipsum. Consequat semper viverra nam libero. Dolor morbi non arcu risus quis varius quam quisque. Cursus eget nunc scelerisque viverra mauris. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Dignissim diam quis enim lobortis scelerisque fermentum dui. Nisl pretium fusce id velit ut. Felis donec et odio pellentesque diam. Adipiscing tristique risus nec feugiat in fermentum posuere urna. Morbi leo urna molestie at elementum. Curabitur gravida arcu ac tortor dignissim convallis aenean et. Massa sapien faucibus et molestie ac feugiat sed.
-            Faucibus vitae aliquet nec ullamcorper sit. Semper quis lectus nulla at volutpat diam. Enim nec dui nunc mattis enim ut tellus elementum sagittis. Erat nam at lectus urna duis convallis convallis. Massa sed elementum tempus egestas sed sed risus pretium quam. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Tincidunt dui ut ornare lectus. Eget mauris pharetra et ultrices neque. Faucibus turpis in eu mi bibendum. Dignissim suspendisse in est ante in nibh mauris cursus mattis. Vivamus at augue eget arcu dictum varius duis at consectetur. Mauris cursus mattis molestie a iaculis at erat pellentesque.</p>
+    <div class="col">
+        <strong>Reviews</strong>
+        <div id="reviews-container">
+        </div>
     </div>
-</div>
 </div>
 {% endblock %}

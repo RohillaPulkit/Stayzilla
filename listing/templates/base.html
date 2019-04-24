@@ -20,13 +20,13 @@
 </head>
 </head>
 {#fixed-top#}
-<nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#"><img src={% static "images/logo.png" %} height="34"> </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-      <p class="navbar-nav mr-auto text-white lead">Listing Title, Location</p>
+      <p class="navbar-nav mr-auto text-white lead">{{ listing.name }}, {{ listing.street }}</p>
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
         <a class="nav-link" href="#">Become a host</a>

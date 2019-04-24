@@ -15,7 +15,6 @@ def sign_in_view(request):
     # generate_booking_data()
     if request.method == "POST":
         sign_in_form = SignInForm(data=request.POST)
-
         if sign_in_form.is_valid():
             user = sign_in_form.get_user()
             login(request, user)
