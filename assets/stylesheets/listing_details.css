@@ -2,7 +2,6 @@
 body {
   min-height: 75rem;
   padding-top: 4.5rem;
-
 }
 
 .navbar-nav li a {
@@ -56,7 +55,35 @@ ul {
     background-color: transparent !important;
 }
 
-.check-in-out, .check-in-out:hover, .check-in-out:focus{
+.date input{
+    background-color: transparent;
+    color: white;
+    border-right: none;
+}
+
+.date input:focus{
+    background-color: transparent;
+    color: white;
+    border-right: none;
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.input-group-text{
+  background-color: transparent;
+  color: white;
+  border-left: none;
+}
+
+.price{
+    background-color: transparent !important;
+    color:white;
     border-width: 0;
-    box-shadow: 0 0 0 0;
+}
+
+.price:focus{
+    background-color: transparent !important;
+    color:white;
+    border-width: 0;
+    box-shadow: none;
 }

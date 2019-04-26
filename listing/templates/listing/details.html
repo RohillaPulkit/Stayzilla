@@ -77,6 +77,11 @@
                     <img class="card-img" src="https://i.pinimg.com/originals/26/b3/c7/26b3c75f0db2991d7f795f6b9a8c2fc5.jpg">
                 </div>
             </div>
+{#             <div class="col-4">#}
+{#                <div class="card shadow-sm">#}
+{#                    <img class="card-img" src="https://www.billielourd.org/wp-content/uploads/2017/01/pine-pillar-candleholders-entry-traditional-with-orchid-resistant-novelty-rugs.jpg">#}
+{#                </div>#}
+{#            </div>#}
         </div>
         <div class="row mt-3">
             <div class="col">
@@ -91,9 +96,21 @@
                 </div>
             </div>
             <div class="col-4">
-                <div class="float-right">
-                 <span class="text-center"> {{ listing.host_name }}  <i class="fa fa-user-circle fa-2x ml-2"></i> </span>
+                <div class="row">
+                    <div class="col">
+                         <div class="float-right">
+                             <span class="text-center"> {{ listing.host_name }} <i class="fa fa-user-circle fa-2x ml-2"></i> </span>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                         <div class="float-right">
+                            <a href="mailto:{{ listing.host_contact }}?subject=Interested%20In%20Listing&body=" class="text-center"> {{ listing.host_contact }} </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="row mt-3 ml-1">
@@ -104,25 +121,42 @@
     </div>
     <div class="col-3 ml-3" >
     <div class="card" style="background-color: gray">
+            <form id="booking_form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ booking_form.listing_id }}
+        {{ booking_form.customer_id }}
+        {{ booking_form.price }}
+
         <div class="card-body">
             <div class="row">
            <div class="col text-white">
-               Dates
+               Check-In
            </div>
            </div>
             <div class="row mt-2 mb-2">
                <div class="col text-center">
-                   <div class="border border-white rounded">
-                       <div class="row">
-                           <div class="col">
-                               <button class="btn check-in-out bg-transparent btn-md w-100 text-white">Check-In</button>
-                           </div>
-                           <span class="d-flex justify-content-center align-items-center"><i class="fas fa-exchange-alt  text-white"></i></span>
-                            <div class="col">
-                               <button class="btn check-in-out bg-transparent btn-md w-100  text-white">Check-Out</button>
-                           </div>
-                       </div>
-                   </div>
+                   <div class="input-group date">
+                   {{ booking_form.check_in }}
+                    <div class="input-group-addon input-group-append" id="check-in-div">
+                        <div class="input-group-text"><i class="glyphicon glyphicon-calendar"></i></div>
+                    </div>
+                </div>
+               </div>
+           </div>
+            <div class="row">
+           <div class="col text-white">
+               Check-Out
+           </div>
+           </div>
+            <div class="row mt-2 mb-2">
+               <div class="col text-center">
+                   <div class="input-group date">
+                   {{ booking_form.check_out }}
+                    <div class="input-group-addon input-group-append" id="check-out-div">
+                        <div class="input-group-text"><i class="glyphicon glyphicon-calendar"></i></div>
+                    </div>
+                </div>
                </div>
            </div>
             <div class="row">
@@ -134,32 +168,39 @@
                <div class="col">
                    <div class="input-group mb-3">
                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-light btn-sm" id="minus-btn"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-outline-light btn-sm" id="minus-btn" type="button"><i class="fa fa-minus"></i></button>
                         </div>
-                        <input type="number" id="qty_input" class="form-control form-control-sm guest-box text-center text-white p-2" value="1">
+                       {{ booking_form.number_of_guests }}
                         <div class="input-group-append">
-                            <button class="btn btn-outline-light btn-sm" id="plus-btn"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-outline-light btn-sm" id="plus-btn" type="button"><i class="fa fa-plus"></i></button>
                         </div>
                    </div>
                </div>
             </div>
             <div class="row mt-2">
-                <div class="col text-white text-center">
-                    Price Breakup
+                <div class="col text-white">
+                    Price
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col text-white">
+                   <label id="label_price">$ 0</label>
                 </div>
             </div>
         </div>
         <div class="card-footer border-0 bg-transparent">
               <div class="container d-flex justify-content-center p-0">
-                  <button type="button" class="btn book-btn book w-100">Book</button>
+                  <button type="submit" class="btn book-btn book w-100">Book</button>
               </div>
        </div>
+            </form>
     </div>
 </div>
 </div>
 <div class="row m-3">
     <div class="col ml-1">
-        <strong>Best Time To Visit</strong>
+        <strong>Best Time To Visit </strong>
+        <label style="color: #00bcd4" class="lead">{{ best_time }}</label>
     </div>
 </div>
 <div class="row m-3">
@@ -170,17 +211,16 @@
 <div class="row m-3">
     <div class="col-4 ml-1">
         <strong>Availability</strong>
+
         <div style="overflow:hidden;">
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8">
-                <div id="datetimepicker12"></div>
-            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-8 m-5">
+                        <div id="availability_dates"></div>
+                    </div>
+                </div>
         </div>
     </div>
-    <script type="text/javascript">
-    </script>
-</div>
     </div>
     <div class="col-7">
         <strong>Popularity Trend</strong>
@@ -192,9 +232,37 @@
 </div>
 <div class="row m-3">
     <div class="col">
+        <strong>Monthly Price Trend</strong>
+        <br/>
+        <div class="m-5">
+        <canvas id="line_chart"></canvas>
+        </div>
+    </div>
+</div>
+<div class="row m-3">
+    <div class="col">
         <strong>Reviews</strong>
         <div id="reviews-container">
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block alert %}
+    {% for error in booking_form.non_field_errors %}
+    <div class="fixed-top m-1">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"> x </button>
+            {{ error }}
+        </div>
+    </div>
+    {% endfor %}
+    {% for key, value in booking_form.errors.items %}
+    <div class="fixed-top m-1">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"> x </button>
+            <strong>{{ key|escape }} : {{ value|escape }}</strong>
+        </div>
+    </div>
+    {% endfor %}
 {% endblock %}

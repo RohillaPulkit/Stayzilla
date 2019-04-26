@@ -20,3 +20,23 @@ def get_popularity_trend(request):
     chart_data['values'] = values
 
     return JsonResponse(chart_data, safe=False)
+
+
+def get_price_trend(request):
+    listing_id = request.GET['listing_id']
+    bookings = DBManager.get_monthly_price_trend(listing_id)
+    months = []
+    prices = []
+
+    for booking in bookings:
+        month = booking.MONTH
+        price = booking.PRICE
+
+        months.append(month)
+        prices.append(price)
+
+    chart_data = {}
+    chart_data['months'] = months
+    chart_data['prices'] = prices
+
+    return JsonResponse(chart_data, safe=False)
