@@ -1,17 +1,9 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .database.dbmanager import DBManager
-from .forms import SearchForm
 from booking.forms import BookingForm
 from booking.models import Booking
-
 import datetime
-
-
-def search_listing(request):
-    form = SearchForm()
-
-    return render(request, 'listing/search.html', {"searchform":form})
 
 
 def search_result(request):
@@ -24,6 +16,7 @@ def get_details(request):
     available_dates_with_price = DBManager.get_available_dates_with_price(id)
     listing = DBManager.get_listing_for_id(id)
     best_time = DBManager.get_best_time_to_visit(id)
+    print(available_dates_with_price)
 
     check_in_date = datetime.datetime.now()
     check_in_string = check_in_date.strftime('%d-%m-%y')
@@ -41,19 +34,19 @@ def get_details(request):
                 return HttpResponse("Added")
             else:
                 booking_form.errors['DB Error '] = success
-        return render(request, 'listing/details.html', {'listing': listing,
+        return render(request, 'listing/details/details.html', {'listing': listing,
                                                         'booking_form': booking_form,
                                                         'dict_dates': dict_dates,
                                                         'best_time': best_time,
                                                         'previous_price_trend': range(0, 4),
                                                         'next_price_trend': range(0, 4)})
     else:
-        booking = Booking(1, 22354, 245914492, check_in_date,  check_in_date, 10, 4)
+        booking = Booking(1, id, 245914492, check_in_date,  check_in_date, 10, 4)
         booking_form = BookingForm(instance=booking)
 
 
         print(check_in_string)
-        return render(request, 'listing/details.html', {'listing': listing,
+        return render(request, 'listing/details/details.html', {'listing': listing,
                                                         'booking_form': booking_form,
                                                         'dict_dates': dict_dates,
                                                         'best_time': best_time,
@@ -64,4 +57,18 @@ def get_details(request):
 def get_reviews(request):
     listing_id = request.GET['listing_id']
     reviews = DBManager.get_reviews(listing_id)
-    return render(request, "listing/reviews.html", {"reviews": reviews})
+    return render(request, "listing/details/reviews.html", {"reviews": reviews})
+
+
+def get_past_prices(request):
+    listing_id = request.GET['listing_id']
+    date_string = request.GET['date']
+    prices = DBManager.get_past_weekly_price_trend(listing_id, date_string)
+    return render(request, "listing/details/prices.html", {"prices": prices})
+
+
+def get_future_prices(request):
+    listing_id = request.GET['listing_id']
+    date_string = request.GET['date']
+    prices = DBManager.get_future_weekly_price_trend(listing_id, date_string)
+    return render(request, "listing/details/prices.html", {"prices": prices})

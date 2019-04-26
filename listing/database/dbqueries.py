@@ -57,4 +57,35 @@ get_best_time_to_visit = " SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS \"MONT
                          "    ORDER BY TOTAL_DAYS DESC, PRICE ASC FETCH FIRST 1 ROW ONLY"\
                          ")"
 
+get_past_weekly_price_trend = "WITH "\
+    "DATES AS (SELECT UPPER_BOUND.CURRENT_DATE - ROWNUM AS VALID_DATE "\
+    "FROM ALL_OBJECTS, (SELECT TO_DATE(%s, 'DD-MM-YY') AS \"CURRENT_DATE\" FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 5), "\
+    "DATA_TABLE AS (SELECT ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS PRICE, "\
+    "                           VALID_DATE FROM BOOKING, "\
+    "                            DATES WHERE LISTING_ID =%s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
+    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD'))"\
+    "                            AND "\
+    "                            to_number(to_char(CHECK_OUT, 'DDD')))"\
+    "SELECT NVL(ROUND(AVG(PRICE), 2), 0) AS PRICE,"\
+    "TO_CHAR(DATES.VALID_DATE, 'DD Month') AS \"DATE\" FROM "\
+    "                            DATA_TABLE"\
+    "                            RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE"\
+    "                            GROUP BY DATES.VALID_DATE"\
+    "                            ORDER BY DATES.VALID_DATE;"
 
+
+get_future_weekly_price_trend = "WITH "\
+    "DATES AS (SELECT UPPER_BOUND.CURRENT_DATE + ROWNUM AS VALID_DATE "\
+    "FROM ALL_OBJECTS, (SELECT TO_DATE(%s, 'DD-MM-YY') AS \"CURRENT_DATE\" FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 5), "\
+    "DATA_TABLE AS (SELECT ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS PRICE, "\
+    "                           VALID_DATE FROM BOOKING, "\
+    "                            DATES WHERE LISTING_ID =%s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
+    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD'))"\
+    "                            AND "\
+    "                            to_number(to_char(CHECK_OUT, 'DDD')))"\
+    "SELECT NVL(ROUND(AVG(PRICE), 2), 0) AS PRICE,"\
+    "TO_CHAR(DATES.VALID_DATE, 'DD Month') AS \"DATE\" FROM "\
+    "                            DATA_TABLE"\
+    "                            RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE"\
+    "                            GROUP BY DATES.VALID_DATE"\
+    "                            ORDER BY DATES.VALID_DATE;"

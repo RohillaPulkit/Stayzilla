@@ -18,6 +18,9 @@ $(document).ready(function(){
     load_reviews();
 
     update_price();
+
+    load_past_price_trend();
+    load_future_price_trend();
  });
 
 function set_date_pickers(){
@@ -55,6 +58,7 @@ function set_date_pickers(){
         date: check_in_date
     }).on('dp.change', function (e) {
         update_price();
+        load_past_price_trend();
     });
 
     $("#check-in-div").click(function(){ $("#id_check_in").datetimepicker("show"); });
@@ -66,6 +70,7 @@ function set_date_pickers(){
         date: check_out_date
     }).on('dp.change', function (e) {
         update_price();
+        load_future_price_trend();
     });;
 
     $("#check-out-div").click(function(){ $("#id_check_out").datetimepicker("show"); });
@@ -284,6 +289,53 @@ function setLineChart(data){
             }
 
     });
+}
+
+function load_past_price_trend(){
+
+    let start_date = $('#id_check_in').val();
+
+    $.ajax({
+        data: {'listing_id': listing_id, 'date': start_date},
+        method: "GET",
+        url: "{%  url "listing:past-price-data"  %}",
+        success: function(data){
+
+            $('#past_price_trend_container').empty();
+            $('#past_price_trend_container').append(data);
+        },
+        error: function(error_data){
+
+            $('#past_price_trend_container').empty();
+
+            console.log("error")
+            console.log(error_data)
+        }
+    })
+}
+
+function load_future_price_trend(){
+
+    let end_date = $('#id_check_out').val();
+
+    $.ajax({
+        data: {'listing_id': listing_id, 'date': end_date},
+        method: "GET",
+        url: "{%  url "listing:future-price-data"  %}",
+        success: function(data){
+            console.log(data);
+
+            $('#future_price_trend_container').empty();
+            $('#future_price_trend_container').append(data);
+        },
+        error: function(error_data){
+
+            $('#future_price_trend_container').empty();
+
+            console.log("error")
+            console.log(error_data)
+        }
+    })
 }
 
 </script>

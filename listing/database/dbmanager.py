@@ -189,6 +189,49 @@ class DBManager:
         finally:
             cursor.close()
 
+    @staticmethod
+    def get_past_weekly_price_trend(listing_id, date):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_past_weekly_price_trend, [date, listing_id])
+            results = DBManager.named_tuple_fetchall(cursor)
+            if results is None:
+                return None
+            else:
+                prices = []
+                for dict_price in results:
+                    date = dict_price.DATE
+                    price = dict_price.PRICE
+                    dict_data = {'date': date, 'price': price}
+                    prices.append(dict_data)
+                return prices
+        except Exception as error:
+            print(error)
+            return None
+        finally:
+            cursor.close()
+
+    @staticmethod
+    def get_future_weekly_price_trend(listing_id, date):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_future_weekly_price_trend, [date, listing_id])
+            results = DBManager.named_tuple_fetchall(cursor)
+            if results is None:
+                return None
+            else:
+                prices = []
+                for dict_price in results:
+                    date = dict_price.DATE
+                    price = dict_price.PRICE
+                    dict_data = {'date': date, 'price': price}
+                    prices.append(dict_data)
+                return prices
+        except Exception as error:
+            print(error)
+            return None
+        finally:
+            cursor.close()
 
     @staticmethod
     def get_available_dates_with_price(listing_id):
