@@ -1,22 +1,19 @@
-<table xmlns:padding="http://www.w3.org/1999/xhtml">
-<thead>
+<table class="table-bordered" style="column-fill: auto" xmlns:padding="http://www.w3.org/1999/xhtml">
+<thead class="thead-dark">
     <tr>
-      <th  style="width: 80%" class ="text-left">city</th>
-        <th class="text-right">percent</th>
+      <th  style="width: 88%" class ="text-center">state</th>
+        <th class="text-center">percent</th>
     </tr>
 </thead>
-<tbody>
-{% for dict in data %}
+<tbody style="height: 200px">
+{% for data in location_data %}
 <tr>
-      <td class=" text-left">
-          {{ dict.city}}
+      <td class=" text-center">
+          {{ data.STATE}}
       </td>
       <td class=" text-center">
-          {{ dict.percent }}
+          {{ data.PERCENT}}
       </td>
-
-
-
 </tr>
 
 {% endfor %}

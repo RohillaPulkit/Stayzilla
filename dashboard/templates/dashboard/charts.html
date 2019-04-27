@@ -11,37 +11,34 @@
 {#{% block jquery %}#}
 {#var endpoint = '{% url 'dashboard:data' %}';#}
 endpoint = '/dashboard/chart/data'
-var defaultData =[]
+{#var defaultData =[]#}
 var labels =[]
 $.ajax({
     method:"GET",
     url: endpoint,
     success: function(data){
         console.log(data);
-        labels = data.labels
-        defaultData = data.def
-        {#console.log(data);#}
+        {#labels = data.mont;#}
+        {#defaultData = data.booking;#}
         console.log(labels);
-        console.log(defaultData);
-        setChart();
-
-
+        console.log(data);
+        setBarChart(data);
     },
     error: function(error_data){
-        console.log("error");
+        console.log("my chart error");
         console.log(error_data);
     }
 })
 
-function setChart(){
+function setBarChart(data){
      var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: data.months,
                 datasets: [{
-                    label: 'NEW YORK',
-                    data: defaultData,
+                    label: 'ALL STATES',
+                    data: data.bookings,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

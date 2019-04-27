@@ -17,47 +17,73 @@
      <div class='row'>
             <div class="col-sm-6">
             <h1 align="center">Monthly listings</h1>
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="myChart" width="400" height="200"></canvas>
 
             </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6" style="padding: 50px">
             <h1 align="center"> Location statistics </h1>
-            <table id="myTable" border="1" class="table"></table>
+            <table id="myTable" border="1" class="table" style="flex: content-box"></table>
 
         </div>
      </div>
 
-  <div class="container", style="background: #e8e8e8; height: 200px">
+  <div class="container container-fluid", style="background: #e8e8e8; height: 600px">
 
-          <div class="row">
-              <h2 align="center"> This is title</h2>
+          <div class="row row-flex">
+              <h2 align="center"> Room type</h2>
           </div>
-          <div class='row'>
-              <div class="col-sm-4"> This is column 1</div>
-              <div class="col-sm-4">This is column 2</div>
-              <div class="col-sm-4"> This is column 3</div>
-
-
+          <div class='row row-flex'>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-5"> You can see the room statistics! All the listings are either single rooms that can be shared or used privately. The remaining listings are condows or apartments that are entirely available for use.</div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-5" align="center">
+                  <canvas id="pieChart" width="20" height="10"></canvas>
+              </div>
+          </div>
+          <div class='row' align="center" style="padding: 100px">
+          <table id="Table2" border="1"></table>
           </div>
 
+        </div>
 
 </div>
-    <div class='row'>
-    <div class="col-sm-12">
-        <h1 align="center">Welcome to stayzilla</h1>
-        <canvas id="chart2" width="400" height="400"></canvas>
-    </div>
+ <div class="container container-fluid", style="background: #e8e8e8; height: 600px; margin-top: 80px">
 
+          <div class="row row-flex">
+              <h2 align="center"> Host listing</h2>
+          </div>
+          <div class='row row-flex'>
+              <div class="col-sm-6"> I am 1</div>
+              <div class="col-sm-6" align="center">
+               <table id="Table3" border="1" class="table" style="flex: content-box"></table>
+              </div>
+          </div>
+          <div class='row row-flex' align="center" style="padding: 100px">
+            <div class="col-sm-6">
+                <canvas id="chart3" width="20" height="10"></canvas>
+          <table id="" border="1" class="table"></table>
+          </div>
+           <div class="col-sm-6"> I am 4</div>
+
+          </div>
+
+        </div>
 
 </div>
+
+
 
         {%  endblock content %}
         </div>
 
         <script>
      $(document).ready(function(){
-            {%  include 'dashboard/js.html' %}
+            {%  include 'dashboard/table1js.html' %}
             {%  include 'dashboard/charts.html' %}
+            {% include 'dashboard/pieCharts.html' %}
+            {%  include 'dashboard/table2js.html' %}
+            {% include 'dashboard/table3js.html' %}
+            {% include 'dashboard/chart3.html' %}
      })
      </script>
     </body>
