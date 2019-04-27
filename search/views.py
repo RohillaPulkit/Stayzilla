@@ -6,10 +6,8 @@ import datetime
 
 
 def search_listing(request):
-    print("Here")
     if request.method == 'POST':
         form = SearchForm(data=request.POST)
-
         if form.is_valid():
             search_query = form.cleaned_data
             json_object = json.dumps(search_query, default=date_converter)
@@ -19,7 +17,6 @@ def search_listing(request):
 
             return redirect('listing:results')
         else:
-            print("FORM ERROR")
             return render(request, 'search.html', {"searchform": form})
     else:
         form = SearchForm()

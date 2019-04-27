@@ -74,30 +74,28 @@ class DBManager:
             else:
                 dict_listing = results[0]
 
-                listing_id = dict_listing.ID
-                host_id = dict_listing.HOST_ID
-                host_name = dict_listing.HOST_NAME
-                host_contact = dict_listing.HOST_CONTACT
-                name = dict_listing.NAME
-                description = dict_listing.DESCRIPTION
-                house_rules = dict_listing.HOUST_RULES
-                accommodates = dict_listing.ACCOMMODATES
-                cancellation_policy = dict_listing.CANCELLATION_POLICY
-                room_type = dict_listing.ROOM_TYPE
-                property_type = dict_listing.PROPERTY_TYPE
-                amenities = dict_listing.AMENITIES
-                picture_url = dict_listing.PICTURE_URL
-                latitude = dict_listing.LATITUDE
-                longitude = dict_listing.LONGITUDE
-                city = dict_listing.CITY
-                street = dict_listing.STREET
-                state = dict_listing.STATE
-                zip_code = dict_listing.ZIP_CODE
-                score = dict_listing.SCORE
+                listing = Listing()
 
-                listing = Listing(listing_id, host_id, host_name, host_contact, name, description, house_rules,
-                                  accommodates, cancellation_policy, room_type, property_type, amenities, picture_url,
-                                  latitude, longitude, city, street, state, zip_code, score)
+                listing.id = dict_listing.ID
+                listing.host_id = dict_listing.HOST_ID
+                listing.host_name = dict_listing.HOST_NAME
+                listing.host_contact = dict_listing.HOST_CONTACT
+                listing.name = dict_listing.NAME
+                listing.description = dict_listing.DESCRIPTION
+                listing.house_rules = dict_listing.HOUST_RULES
+                listing.accommodates = dict_listing.ACCOMMODATES
+                listing.cancellation_policy = dict_listing.CANCELLATION_POLICY
+                listing.room_type = dict_listing.ROOM_TYPE
+                listing.property_type = dict_listing.PROPERTY_TYPE
+                listing.amenities = dict_listing.AMENITIES
+                listing.picture_url = dict_listing.PICTURE_URL
+                listing.latitude = dict_listing.LATITUDE
+                listing.longitude = dict_listing.LONGITUDE
+                listing.city = dict_listing.CITY
+                listing.street = dict_listing.STREET
+                listing.state = dict_listing.STATE
+                listing.zip_code = dict_listing.ZIP_CODE
+                listing.score = dict_listing.SCORE
 
                 return listing
         finally:
@@ -228,7 +226,6 @@ class DBManager:
                     current_price = dict_price.CURRENT_PRICE
                     dict_data = {'date': date, 'price': price, 'current_price': current_price}
                     prices.append(dict_data)
-                print(prices)
                 return prices
         except Exception as error:
             print(error)

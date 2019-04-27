@@ -28,39 +28,6 @@ class Listing(models.Model):
     price = models.IntegerField
     score = models.IntegerField
 
-
-    def __init__(self, id, host_id, host_name, host_contact, name, description, house_rules, accommodates,
-                 cancellation_policy, room_type, property_type, amenities, picture_url, latitude, longitude,
-                 city, street, state, zip_code, score):
-        self.id = id
-        self.host_id = host_id
-        self.host_name = host_name
-        self.host_contact = host_contact
-        self.name = name
-        self.description = description
-        self.house_rules = house_rules
-        self.accommodates = accommodates
-        self.cancellation_policy = cancellation_policy
-        self.room_type = room_type
-        self.property_type = property_type
-        self.amenities = amenities
-        self.picture_url = picture_url
-        self.latitude = latitude
-        self.longitude = longitude
-        self.city = city
-        self.street = street
-        self.state = state
-        self.zip_code = zip_code
-        self.score = score
-
-    def __init__(self,id, name, description,price,score):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.price = price
-        self.score = score
-
-
     def formatted_description(self):
         return self.description.title()
 

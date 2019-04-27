@@ -27,6 +27,23 @@
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
     </form>
-
+    <div class="container-fluid">
+    {% for error in searchform.non_field_errors %}
+    <div class="fixed-top m-1">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"> x </button>
+            {{ error }}
+        </div>
+    </div>
+    {% endfor %}
+    {% for key, value in searchform.errors.items %}
+    <div class="fixed-top m-1">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"> x </button>
+            <strong>{{ key|escape }} : {{ value|escape }}</strong>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
 </body>
 </html>

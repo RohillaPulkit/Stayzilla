@@ -1,5 +1,4 @@
 from django.db import connection
-print (connection.queries)
 from collections import namedtuple
 from search.database import dbqueries
 from listing.models import Listing
@@ -14,7 +13,6 @@ class DBManager:
         return [nt_result(*row) for row in cursor.fetchall()]
 
     @staticmethod
-
     def search_customer_listing(searchquery):
         cursor = connection.cursor()
         try:
@@ -32,16 +30,16 @@ class DBManager:
                 return None
             else:
                 valid_listings = []
-                for listing in results:
-                    print(listing)
-                    id          = listing.LISTING_ID
-                    name        = listing.NAME
-                    description = listing.DESCRIPTION
-                    price       = listing.PRICE
-                    score       = listing.SCORE
-                    card = Listing(id, name, description,price,score)
-                    valid_listings.append(card)
-                    print("Added")
+                for dict_listing in results:
+                    listing = Listing()
+
+                    listing.id = dict_listing.LISTING_ID
+                    listing.name = dict_listing.NAME
+                    listing.description = dict_listing.DESCRIPTION
+                    listing.price = dict_listing.PRICE
+                    listing.score = dict_listing.SCORE
+
+                    valid_listings.append(listing)
                 return valid_listings
         except Exception as error:
             print(error)
