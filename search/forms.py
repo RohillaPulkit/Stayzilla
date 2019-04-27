@@ -11,7 +11,7 @@ class SearchForm(forms.ModelForm):
             'destination': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Destination'}),
             'from_date': DatePickerInput(attrs={'class': 'form-control', 'placeholder': 'Check-In'},
                                          options={
-                                             "format": "MM-DD-YY",  # moment date-time format
+                                             "format": "DD-MMM-YY",  # moment date-time format
                                              "showClose": False,
                                              "showClear": False,
                                              "showTodayButton": False,
@@ -19,7 +19,7 @@ class SearchForm(forms.ModelForm):
                                          ),
             'to_date': DatePickerInput(attrs={'class': 'form-control', 'placeholder': 'Check-Out'},
                                        options={
-                                           "format": "MM-DD-YY",  # moment date-time format
+                                           "format": "DD-MMM-YY",  # moment date-time format
                                            "showClose": False,
                                            "showClear": False,
                                            "showTodayButton": False,

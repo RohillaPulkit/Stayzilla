@@ -6,7 +6,7 @@ class Search(models.Model):
         managed = False
 
     destination = models.TextField()
-    from_date = models.DateField()
-    to_date = models.DateField()
+    from_date = models.TextField()
+    to_date = models.TextField()
     num_guests = models.IntegerField()
 

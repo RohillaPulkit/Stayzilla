@@ -2,9 +2,9 @@ search_customer_listing = \
 " WITH "\
    " DATES AS "\
    "(SELECT "\
-   " TO_DATE(%s, 'DD-MM-YY') - 1 + rownum AS VALID_DATE "\
+   " TO_DATE(%s, 'DD-Mon-YY') - 1 + rownum AS VALID_DATE "\
    " FROM all_objects "\
-   " WHERE TO_DATE(%s, 'DD-MM-YY') - 1 + rownum <= TO_DATE(%s, 'DD-MM-YY')) "\
+   " WHERE TO_DATE(%s, 'DD-Mon-YY') - 1 + rownum <= TO_DATE(%s, 'DD-Mon-YY')) "\
 " SELECT LTABLE.ID AS LISTING_ID, LTABLE.NAME, SUBSTR(LTABLE.DESCRIPTION,0,60)AS DESCRIPTION, PRI_SCORE.PRICE, PRI_SCORE.SCORE "\
 "FROM "\
 "(SELECT LISTING.ID, LISTING.NAME, LISTING.DESCRIPTION FROM LISTING WHERE LISTING.CITY = %s AND " \

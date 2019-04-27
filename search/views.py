@@ -19,15 +19,12 @@ def search_listing(request):
 
             return redirect('listing:results')
         else:
+            print("FORM ERROR")
             return render(request, 'search.html', {"searchform": form})
     else:
         form = SearchForm()
         return render(request, 'search.html', {"searchform": form})
 
-def clean(self):
-
-    checkindate = self.cleaned_data['from_date']
-    checkoutdate = self.cleaned_data['to_date']
 
 def date_converter(o):
     if isinstance(o, datetime.date):
