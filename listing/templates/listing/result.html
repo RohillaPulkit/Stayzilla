@@ -1,19 +1,15 @@
 {% extends "base.html" %}
-
+{% load bootstrap4 %}
 {% load static %}
 
  <link href="{% static "stylesheets/result.css" %}" rel="stylesheet">
+
 {% block content %}
-<script>
-document.getElementById("search").innerHTML = "My First JavaScript";
-</script>
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <form class="form-inline my-2 my-lg-0 w-50 ">
-      <input class="form-control mr-lg-5 my-2 w-30" type="search" placeholder="Search" aria-label="Search" id="search">
-      <button class="btn btn-outline-success my-2 my-sm-0 w-25" type="submit">Search</button>
-    </form>
+
     <ul class="navbar-nav mr-auto nav-fill w-50">
 
       <li class="nav-item dropdown active ">
@@ -49,98 +45,35 @@ document.getElementById("search").innerHTML = "My First JavaScript";
 </nav>
 
 <div class ="container">
-<div class="row">
+    <div class="row">
 
-    <div class="col-3 card" style="width: 10rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="{% url "listing:details" %}" class="btn btn-primary">Go somewhere</a>
-        </div>
+         {% for listing in listings %}
+
+             <div class="card col-3" >
+                 <img class="card-img-top" src={{ listing.picture_url }}>
+                 <div class="card-body">
+                     <h5 class="card-title">{{ listing.name }}</h5>
+                     <p class="card-text">{{ listing.description }}</p>
+                     <div>
+                    {% for i in i|rjust:5 %}
+                        {% if forloop.counter <= listing.score %}
+                            <span class="fa fa-star checked "></span>
+                        {% else %}
+                            <span class="fa fa-star "></span>
+                        {% endif %}
+                    {% endfor %}
+                     </div>
+                     <a href="{% url "listing:details" %}" class="btn btn-primary">Go somewhere</a>
+                 </div>
+             </div>
+
+        {% endfor %}
+
     </div>
-
-    </div>
-{#    <div class="col-3">#}
-{#        <div class="card" style="width: 10rem;">#}
-{#        <img class="card-img-top" src="..." alt="Card image cap">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">Card title</h5>#}
-{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
-{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    </div>#}
-{#    <div class="col-3">#}
-{#        <div class="card" style="width: 10rem;">#}
-{#        <img class="card-img-top" src="..." alt="Card image cap">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">Card title</h5>#}
-{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
-{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    </div>#}
-{#    <div class="col-3">#}
-{#        <div class="card" style="width: 10rem;">#}
-{#        <img class="card-img-top" src="..." alt="Card image cap">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">Card title</h5>#}
-{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
-{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    </div>#}
-
-
-</div>
 
 </div>
 
 
 
-
-{#   <div class="nav-scroller shadow row ">#}
-{#   <ul class="nav nav-pills">#}
-{#       <li class="nav-item dropdown">#}
-{#    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Number of guests</a>#}
-{#    <div class="dropdown-menu">#}
-{#      <a class="dropdown-item" href="#">1</a>#}
-{#      <a class="dropdown-item" href="#">2</a>#}
-{#      <a class="dropdown-item" href="#">3</a>#}
-{#    </div>#}
-{##}
-{#  </li>#}
-{##}
-{#  <li class="nav-item dropdown">#}
-{#    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Price</a>#}
-{#    <div class="dropdown-menu">#}
-{#      <a class="dropdown-item" href="#">$500</a>#}
-{#      <a class="dropdown-item" href="#">$500-$1000</a>#}
-{#      <a class="dropdown-item" href="#">More than $1000</a>#}
-{#    </div>#}
-{##}
-{#  </li>#}
-{##}
-{##}
-{##}
-{#</ul>#}
-{#    </div>#}
-{#    <nav aria-label="Page navigation example">#}
-{#  <ul class="pagination justify-content-center">#}
-{#    <li class="page-item disabled">#}
-{#      <a class="page-link" href="#" tabindex="-1">Previous</a>#}
-{#    </li>#}
-{#    <li class="page-item"><a class="page-link" href="#">1</a></li>#}
-{#    <li class="page-item"><a class="page-link" href="#">2</a></li>#}
-{#    <li class="page-item"><a class="page-link" href="#">3</a></li>#}
-{#    <li class="page-item">#}
-{#      <a class="page-link" href="#">Next</a>#}
-{#    </li>#}
-{#  </ul>#}
-{#</nav>#}
 
 {% endblock %}

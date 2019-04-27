@@ -14,7 +14,10 @@ def search_result(request):
     print(search_query)
     listings = SearchManager.search_customer_listing(json_query)
     print(listings)
-    return render(request, 'listing/result.html', None)
+
+    return render(request, 'listing/result.html',{"listings": listings})
+
+
 
 
 @login_required(login_url="/accounts/signin")
