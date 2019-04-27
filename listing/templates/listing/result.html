@@ -1,18 +1,17 @@
 {% extends "base.html" %}
+
 {% load static %}
 
+ <link href="{% static "stylesheets/result.css" %}" rel="stylesheet">
 {% block content %}
-
+<script>
+document.getElementById("search").innerHTML = "My First JavaScript";
+</script>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-{#  <a class="navbar-brand" href="#">Navbar</a>#}
-{#  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
-{#    <span class="navbar-toggler-icon"></span>#}
-{#  </button>#}
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0 w-50">
-      <input class="form-control mr-lg-2 " type="search" placeholder="Search" aria-label="Search">
+    <form class="form-inline my-2 my-lg-0 w-50 ">
+      <input class="form-control mr-lg-5 my-2 w-30" type="search" placeholder="Search" aria-label="Search" id="search">
       <button class="btn btn-outline-success my-2 my-sm-0 w-25" type="submit">Search</button>
     </form>
     <ul class="navbar-nav mr-auto nav-fill w-50">
@@ -49,11 +48,10 @@
   </div>
 </nav>
 
-
 <div class ="container">
 <div class="row">
-    <div class="col-3">
-        <div class="card" style="width: 10rem;">
+
+    <div class="col-3 card" style="width: 10rem;">
         <img class="card-img-top" src="..." alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
@@ -63,39 +61,39 @@
     </div>
 
     </div>
-    <div class="col-3">
-        <div class="card" style="width: 10rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-
-    </div>
-    <div class="col-3">
-        <div class="card" style="width: 10rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-
-    </div>
-    <div class="col-3">
-        <div class="card" style="width: 10rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-    </div>
-
-    </div>
+{#    <div class="col-3">#}
+{#        <div class="card" style="width: 10rem;">#}
+{#        <img class="card-img-top" src="..." alt="Card image cap">#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title">Card title</h5>#}
+{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    </div>#}
+{#    <div class="col-3">#}
+{#        <div class="card" style="width: 10rem;">#}
+{#        <img class="card-img-top" src="..." alt="Card image cap">#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title">Card title</h5>#}
+{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    </div>#}
+{#    <div class="col-3">#}
+{#        <div class="card" style="width: 10rem;">#}
+{#        <img class="card-img-top" src="..." alt="Card image cap">#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title">Card title</h5>#}
+{#            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+{#            <a href="#" class="btn btn-primary">Go somewhere</a>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    </div>#}
 
 
 </div>

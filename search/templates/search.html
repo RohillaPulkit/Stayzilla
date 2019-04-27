@@ -11,31 +11,22 @@
     <title>
             Search
     </title>
-
-    <link href="{% static "stylesheets/search.css" %}" rel="stylesheet">
-
-
+        {% include 'css.html' %}
+        {% include 'js.html' %}
 </head>
 <body >
-       {% block content %}
-            <form class="form-search" action="{% url 'listing:results'  %}" method="post" >
+    <form class="form-search" action="{% url 'search:search'  %}" method="post" >
         {% csrf_token %}
         <h1 class="h2 mb-4 font-weight-normal text-white h1test">
             Search
         </h1>
 
-                {% for field in searchform %}
-                     {{ field }}
-                {% endfor %}
+            {% for field in searchform %}
+                 {{ field }}
+            {% endfor %}
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
-            </form>
-
-        {%  endblock %}
-
-        {% block alert %}
-
-        {% endblock %}
+    </form>
 
 </body>
 </html>

@@ -1,0 +1,1 @@
+search_customer_listing = "SELECT * FROM LISTING WHERE ACCOMMODATES= %s"
