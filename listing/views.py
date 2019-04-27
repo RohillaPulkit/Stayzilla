@@ -68,6 +68,7 @@ def get_past_prices(request):
 
 
 def get_future_prices(request):
+    print("GETTING FUTURE PRICES")
     listing_id = request.GET['listing_id']
     date_string = request.GET['date']
     prices = DBManager.get_future_weekly_price_trend(listing_id, date_string)

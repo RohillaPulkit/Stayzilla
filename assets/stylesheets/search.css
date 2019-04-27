@@ -27,8 +27,6 @@ body {
     padding: 15px;
     margin-left: 10%;
     border-radius: 15px;
-
-    
 }
 
 .h1test {
@@ -54,7 +52,12 @@ body {
   z-index: 2;
 }
 
-.form-search input {
+ .form-search .btn {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.form-search .input-group {
   margin-bottom: 15px;
   margin-top: 15px;
 }
@@ -74,8 +77,6 @@ mark{
     color: #00bcd4;
     font-size: 18px;
 }
-
-
 
 @font-face {
     font-family: 'Glyphicons Halflings';
@@ -135,28 +136,6 @@ mark{
     content: "\e014";
 }
 
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
 .bootstrap-datetimepicker-widget.dropdown-menu {
     position: absolute;
     left: 0;
@@ -197,5 +176,4 @@ mark{
 .bootstrap-datetimepicker-widget .table-condensed > tbody > tr > td,
 .bootstrap-datetimepicker-widget .table-condensed > tfoot > tr > td {
     padding: 5px;
-
 }

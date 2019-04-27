@@ -22,15 +22,23 @@ get_popularity_trend = "SELECT ROUND(AVG(BOOKINGS)) AS \"BOOKINGS\", " \
                        "GROUP BY \"MON\" " \
                        "ORDER BY \"MON\";"
 
-get_monthly_price_trend = "SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS MONTH, " \
-                          "ROUND(TOTAL_PRICE/TOTAL_DAYS, 2) AS PRICE " \
-                          "FROM (SELECT MON, SUM(PRICE) AS TOTAL_PRICE," \
-                          " SUM(NUMBER_OF_DAYS) AS TOTAL_DAYS " \
-                          "FROM (SELECT EXTRACT(MONTH FROM CHECK_IN) AS MON, " \
-                          "PRICE, (CHECK_OUT-CHECK_IN) AS " \
-                          "NUMBER_OF_DAYS " \
-                          "FROM BOOKING " \
-                          "WHERE LISTING_ID = %s) " \
+get_monthly_price_trend = "SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS MONTH, "\
+                          "ROUND(AVG_PRICE, 2) AS PRICE "\
+                          "FROM ("\
+                          "SELECT MON, AVG(PRICE_PER_GUEST_PER_DAY) AS AVG_PRICE "\
+                          "FROM "\
+                          "(SELECT MON, "\
+                          "PRICE_PER_GUEST/NUMBER_OF_DAYS AS PRICE_PER_GUEST_PER_DAY "\
+                          "FROM "\
+                          "(SELECT EXTRACT(MONTH FROM CHECK_IN) AS MON, "\
+                          "PRICE, "\
+                          "PRICE/ NUMBER_OF_GUESTS AS PRICE_PER_GUEST, "\
+                          "(CHECK_OUT-CHECK_IN) AS "\
+                          "NUMBER_OF_DAYS, "\
+                          "NUMBER_OF_GUESTS "\
+                          "FROM BOOKING "\
+                          "WHERE LISTING_ID = %s) "\
+                          ") "\
                           "GROUP BY MON) " \
                           "ORDER BY MON;"
 
@@ -47,7 +55,7 @@ get_best_time_to_visit = " SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS \"MONT
                          "            ("\
                          "                SELECT EXTRACT(MONTH FROM CHECK_IN) AS MON, "\
                          "                EXTRACT(YEAR FROM CHECK_IN) AS YR,"\
-                         "                PRICE, (CHECK_OUT-CHECK_IN) AS NUMBER_OF_DAYS"\
+                         "                PRICE/ NUMBER_OF_GUESTS AS PRICE, (CHECK_OUT-CHECK_IN) AS NUMBER_OF_DAYS"\
                          "                FROM BOOKING WHERE LISTING_ID = %s"\
                          "            )"\
                          "            GROUP BY MON, YR"\
@@ -58,34 +66,44 @@ get_best_time_to_visit = " SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS \"MONT
                          ")"
 
 get_past_weekly_price_trend = "WITH "\
-    "DATES AS (SELECT UPPER_BOUND.CURRENT_DATE - ROWNUM AS VALID_DATE "\
-    "FROM ALL_OBJECTS, (SELECT TO_DATE(%s, 'DD-MM-YY') AS \"CURRENT_DATE\" FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 5), "\
-    "DATA_TABLE AS (SELECT ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS PRICE, "\
+    " DATES AS (SELECT UPPER_BOUND.CURRENT_DATE - ROWNUM AS VALID_DATE "\
+    "            FROM ALL_OBJECTS, " \
+    "            (SELECT TO_DATE(%s, 'DD-MM-YY') AS CURRENT_DATE FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 4), "\
+    " DATA_TABLE AS (SELECT LISTING_ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS FUTURE_PRICE, "\
     "                           VALID_DATE FROM BOOKING, "\
-    "                            DATES WHERE LISTING_ID =%s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
-    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD'))"\
+    "                            DATES WHERE LISTING_ID = %s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
+    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD')) "\
     "                            AND "\
-    "                            to_number(to_char(CHECK_OUT, 'DDD')))"\
-    "SELECT NVL(ROUND(AVG(PRICE), 2), 0) AS PRICE,"\
-    "TO_CHAR(DATES.VALID_DATE, 'DD Month') AS \"DATE\" FROM "\
-    "                            DATA_TABLE"\
-    "                            RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE"\
-    "                            GROUP BY DATES.VALID_DATE"\
-    "                            ORDER BY DATES.VALID_DATE;"
+    "                            to_number(to_char(CHECK_OUT, 'DDD'))) "\
+    " SELECT FUTURE_PRICE AS PRICE, TO_CHAR(VALID_DATE, 'DD-MM-YY') AS \"DATE\",  NVL(PRICE, 0) AS CURRENT_PRICE FROM "\
+    " (SELECT  LISTING_ID AS ID, "\
+    " NVL(ROUND(AVG(FUTURE_PRICE), 2), 0) AS FUTURE_PRICE, "\
+    " DATES.VALID_DATE "\
+    " FROM "\
+    " DATA_TABLE "\
+    " RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE "\
+    " GROUP BY DATES.VALID_DATE, DATA_TABLE.LISTING_ID "\
+    " ORDER BY DATES.VALID_DATE) "\
+    " LEFT JOIN AVAILABLE ON AVAILABLE.AVAILABILITY_DATE = VALID_DATE AND AVAILABLE.LISTING_ID = ID;"
 
 
 get_future_weekly_price_trend = "WITH "\
-    "DATES AS (SELECT UPPER_BOUND.CURRENT_DATE + ROWNUM AS VALID_DATE "\
-    "FROM ALL_OBJECTS, (SELECT TO_DATE(%s, 'DD-MM-YY') AS \"CURRENT_DATE\" FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 5), "\
-    "DATA_TABLE AS (SELECT ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS PRICE, "\
+    " DATES AS (SELECT UPPER_BOUND.CURRENT_DATE + ROWNUM AS VALID_DATE "\
+    "            FROM ALL_OBJECTS, " \
+    "            (SELECT TO_DATE(%s, 'DD-MM-YY') AS CURRENT_DATE FROM DUAL) UPPER_BOUND WHERE  ROWNUM <= 4), "\
+    " DATA_TABLE AS (SELECT LISTING_ID, CHECK_IN, CHECK_OUT, (PRICE/(CHECK_OUT-CHECK_IN)) AS FUTURE_PRICE, "\
     "                           VALID_DATE FROM BOOKING, "\
-    "                            DATES WHERE LISTING_ID =%s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
-    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD'))"\
+    "                            DATES WHERE LISTING_ID = %s AND to_number(to_char(DATES.VALID_DATE, 'DDD')) "\
+    "                            BETWEEN to_number(to_char(CHECK_IN, 'DDD')) "\
     "                            AND "\
-    "                            to_number(to_char(CHECK_OUT, 'DDD')))"\
-    "SELECT NVL(ROUND(AVG(PRICE), 2), 0) AS PRICE,"\
-    "TO_CHAR(DATES.VALID_DATE, 'DD Month') AS \"DATE\" FROM "\
-    "                            DATA_TABLE"\
-    "                            RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE"\
-    "                            GROUP BY DATES.VALID_DATE"\
-    "                            ORDER BY DATES.VALID_DATE;"
+    "                            to_number(to_char(CHECK_OUT, 'DDD'))) "\
+    " SELECT FUTURE_PRICE AS PRICE, TO_CHAR(VALID_DATE, 'DD-MM-YY') AS \"DATE\",  NVL(PRICE, 0) AS CURRENT_PRICE FROM "\
+    " (SELECT  LISTING_ID AS ID, "\
+    " NVL(ROUND(AVG(FUTURE_PRICE), 2), 0) AS FUTURE_PRICE, "\
+    " DATES.VALID_DATE "\
+    " FROM "\
+    " DATA_TABLE "\
+    " RIGHT JOIN DATES ON DATES.VALID_DATE = DATA_TABLE.VALID_DATE "\
+    " GROUP BY DATES.VALID_DATE, DATA_TABLE.LISTING_ID "\
+    " ORDER BY DATES.VALID_DATE) "\
+    " LEFT JOIN AVAILABLE ON AVAILABLE.AVAILABILITY_DATE = VALID_DATE AND AVAILABLE.LISTING_ID = ID;"

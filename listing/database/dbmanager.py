@@ -202,7 +202,8 @@ class DBManager:
                 for dict_price in results:
                     date = dict_price.DATE
                     price = dict_price.PRICE
-                    dict_data = {'date': date, 'price': price}
+                    current_price = dict_price.CURRENT_PRICE
+                    dict_data = {'date': date, 'price': price, 'current_price': current_price}
                     prices.append(dict_data)
                 return prices
         except Exception as error:
@@ -218,16 +219,21 @@ class DBManager:
             cursor.execute(dbqueries.get_future_weekly_price_trend, [date, listing_id])
             results = DBManager.named_tuple_fetchall(cursor)
             if results is None:
+                print("No results")
                 return None
             else:
+                print("FUTURE PRICES")
                 prices = []
                 for dict_price in results:
                     date = dict_price.DATE
                     price = dict_price.PRICE
-                    dict_data = {'date': date, 'price': price}
+                    current_price = dict_price.CURRENT_PRICE
+                    dict_data = {'date': date, 'price': price, 'current_price': current_price}
                     prices.append(dict_data)
+                print(prices)
                 return prices
         except Exception as error:
+            print("ERROR")
             print(error)
             return None
         finally:
