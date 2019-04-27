@@ -8,6 +8,7 @@ import datetime
 import json
 
 
+@login_required(login_url="/accounts/signin")
 def search_result(request):
     search_query = request.session.get('search_query')
     json_query = json.loads(search_query)
@@ -19,16 +20,19 @@ def search_result(request):
 
 @login_required(login_url="/accounts/signin")
 def get_details(request, listing_id):
-    id = '22354'
-    available_dates_with_price = DBManager.get_available_dates_with_price(id)
-    listing = DBManager.get_listing_for_id(id)
-    best_time = DBManager.get_best_time_to_visit(id)
-    print(available_dates_with_price)
+    user = request.user
+    search_query = request.session.get('search_query')
+    json_query = json.loads(search_query)
 
-    check_in_date = datetime.datetime.now()
-    check_in_string = check_in_date.strftime('%d-%m-%y')
+    available_dates_with_price = DBManager.get_available_dates_with_price(listing_id)
+    listing = DBManager.get_listing_for_id(listing_id)
+    best_time = DBManager.get_best_time_to_visit(listing_id)
+
+    check_in_string = json_query.get('from_date')
+    check_out_string = json_query.get('to_date')
+
     dict_dates = {'check_in': check_in_string,
-                  'check_out': check_in_string,
+                  'check_out': check_out_string,
                   'available_dates_with_price': available_dates_with_price}
 
     if request.method == "POST":
@@ -47,16 +51,17 @@ def get_details(request, listing_id):
                                                         'dict_dates': dict_dates,
                                                         'best_time': best_time})
     else:
-        booking = Booking(1, id, 245914492, check_in_date,  check_in_date, 10, 4)
+        booking = Booking()
+        booking.customer_id = user.user_id
+        booking.listing_id = listing_id
+        booking.number_of_guests = json_query.get('num_guests')
+        booking.price = 0
         booking_form = BookingForm(instance=booking)
 
-        print(check_in_string)
         return render(request, 'listing/details/details.html', {'listing': listing,
-                                                        'booking_form': booking_form,
-                                                        'dict_dates': dict_dates,
-                                                        'best_time': best_time,
-                                                        'previous_price_trend': range(0, 4),
-                                                        'next_price_trend': range(0, 4)})
+                                                                'booking_form': booking_form,
+                                                                'dict_dates': dict_dates,
+                                                                'best_time': best_time})
 
 
 def get_reviews(request):
