@@ -1,12 +1,19 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .database.dbmanager import DBManager
+from search.database.dbmanager import DBManager as SearchManager
 from booking.forms import BookingForm
 from booking.models import Booking
 import datetime
+import json
 
 
 def search_result(request):
+    search_query = request.session.get('search_query')
+    json_query = json.loads(search_query)
+    print(search_query)
+    listings = SearchManager.search_customer_listing(json_query)
+    print(listings)
     return render(request, 'listing/result.html', None)
 
 
