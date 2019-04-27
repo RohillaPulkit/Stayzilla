@@ -18,7 +18,7 @@ def search_result(request):
 
 
 @login_required(login_url="/accounts/signin")
-def get_details(request):
+def get_details(request, listing_id):
     id = '22354'
     available_dates_with_price = DBManager.get_available_dates_with_price(id)
     listing = DBManager.get_listing_for_id(id)
