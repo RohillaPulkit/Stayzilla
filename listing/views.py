@@ -31,19 +31,16 @@ def get_details(request):
             booking = booking_form.cleaned_data
             success = DBManager.add_booking(booking)
             if success == True:
-                return HttpResponse("Added")
+                return HttpResponse("Your booking has been confirmed.")
             else:
                 booking_form.errors['DB Error '] = success
         return render(request, 'listing/details/details.html', {'listing': listing,
                                                         'booking_form': booking_form,
                                                         'dict_dates': dict_dates,
-                                                        'best_time': best_time,
-                                                        'previous_price_trend': range(0, 4),
-                                                        'next_price_trend': range(0, 4)})
+                                                        'best_time': best_time})
     else:
         booking = Booking(1, id, 245914492, check_in_date,  check_in_date, 10, 4)
         booking_form = BookingForm(instance=booking)
-
 
         print(check_in_string)
         return render(request, 'listing/details/details.html', {'listing': listing,
@@ -68,7 +65,6 @@ def get_past_prices(request):
 
 
 def get_future_prices(request):
-    print("GETTING FUTURE PRICES")
     listing_id = request.GET['listing_id']
     date_string = request.GET['date']
     prices = DBManager.get_future_weekly_price_trend(listing_id, date_string)

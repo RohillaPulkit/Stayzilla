@@ -219,10 +219,8 @@ class DBManager:
             cursor.execute(dbqueries.get_future_weekly_price_trend, [date, listing_id])
             results = DBManager.named_tuple_fetchall(cursor)
             if results is None:
-                print("No results")
                 return None
             else:
-                print("FUTURE PRICES")
                 prices = []
                 for dict_price in results:
                     date = dict_price.DATE
@@ -233,7 +231,6 @@ class DBManager:
                 print(prices)
                 return prices
         except Exception as error:
-            print("ERROR")
             print(error)
             return None
         finally:
