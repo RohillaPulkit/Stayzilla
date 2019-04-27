@@ -36,6 +36,7 @@ class DBManager:
                     listing.id = dict_listing.LISTING_ID
                     listing.name = dict_listing.NAME
                     listing.description = dict_listing.DESCRIPTION
+                    listing.description = dict_listing.PICTURE_URL
                     listing.price = dict_listing.PRICE
                     listing.score = dict_listing.SCORE
 
