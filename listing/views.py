@@ -34,7 +34,8 @@ def get_details(request):
                 return HttpResponse("Your booking has been confirmed.")
             else:
                 booking_form.errors['DB Error '] = success
-        return render(request, 'listing/details/details.html', {'listing': listing,
+        return render(request, 'listing/details/details.html', {
+                                                        'listing': listing,
                                                         'booking_form': booking_form,
                                                         'dict_dates': dict_dates,
                                                         'best_time': best_time})

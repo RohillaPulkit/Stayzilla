@@ -31,10 +31,21 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Become a host</a>
       </li>
-        <li class="nav-item">
-        <a class="nav-link" href="#">
-            <img src={% static "images/user.png" %} width="34 height="34">
+        <li class="nav-item dropdown">
+        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src={% static "images/user.png" %} width="34 height="34">
         </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <label class="ml-4">
+              {% if user %}
+                 Hey, {{ user.first_name }}
+              {% else %}
+                  Unknown
+              {% endif %}
+          </label>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{% url "accounts:signout" %}">Sign Out</a>
+        </div>
       </li>
     </ul>
   </div>
