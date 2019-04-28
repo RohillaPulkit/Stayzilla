@@ -191,7 +191,7 @@ class DBManager:
     def get_past_weekly_price_trend(listing_id, date):
         cursor = connection.cursor()
         try:
-            cursor.execute(dbqueries.get_past_weekly_price_trend, [date, listing_id])
+            cursor.execute(dbqueries.get_past_weekly_price_trend, [date, listing_id, listing_id])
             results = DBManager.named_tuple_fetchall(cursor)
             if results is None:
                 return None
@@ -214,7 +214,7 @@ class DBManager:
     def get_future_weekly_price_trend(listing_id, date):
         cursor = connection.cursor()
         try:
-            cursor.execute(dbqueries.get_future_weekly_price_trend, [date, listing_id])
+            cursor.execute(dbqueries.get_future_weekly_price_trend, [date, listing_id, listing_id])
             results = DBManager.named_tuple_fetchall(cursor)
             if results is None:
                 return None
