@@ -60,7 +60,7 @@ ROOT_URLCONF = 'stayzilla.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['stayzilla/templates'],
+        'DIRS': ['stayzilla/templates','templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
