@@ -5,7 +5,7 @@ from dashboard.database.dbmanager import DBManager
 
 def dashboard(request):
     all_states = DBManager.get_states()
-    return render(request, "dashboard/base.html", {'all_states': all_states})
+    return render(request, "dashboard/dashboard.html", {'all_states': all_states})
 
 
 def get_chart_data(request):
@@ -72,9 +72,10 @@ def get_table3_data(request):
 
 
 def get_chart3(request):
-
+    profit = DBManager.get_profit()
     chart3_data = {}
-    chart3_data['label'] = ['one', 'two', 'three']
-    chart3_data['data'] = [1, 2, 3]
+    chart3_data['label'] = profit.yr
+    chart3_data['data'] = profit.profit
+    print("chart3")
     print(chart3_data)
     return JsonResponse(chart3_data, safe=False)

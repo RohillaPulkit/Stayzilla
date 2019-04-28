@@ -70,3 +70,10 @@ get_info = "SELECT 'Listing' AS NAME, COUNT(*) AS Count FROM LISTING UNION " \
            "SELECT 'Host' AS Name,COUNT(*) AS Count FROM HOST UNION " \
            "SELECT 'Customer' AS Name, COUNT(*) AS Count FROM CUSTOMER UNION " \
            "SELECT 'Users' AS NAME , COUNT(*) AS Count FROM USERS;"
+
+get_profit = ""
+# get_profit = "select (sum(price)* 0.1) as profit, yea as yr from
+# (select price,extract(YEAR FROM CHECK_IN) as yea
+# from booking)
+# group by yea;
+# "

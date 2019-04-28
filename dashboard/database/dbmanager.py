@@ -230,3 +230,24 @@ class DBManager:
             return None
         finally:
             cursor.close()
+
+    @staticmethod
+    def get_profit():
+        cursor = connection.cursor()
+        try:
+            cursor.execute(dbqueries.get_profit)
+            results = DBManager.named_tuple_fetchall(cursor)
+
+            if results is None:
+                return None
+            else:
+                chart3_data = []
+                for data in results:
+                    chart3_data.append(data)
+                return chart3_data
+        except Exception as error:
+            print("Error in get_chart3_data")
+            print(error)
+            return None
+        finally:
+            cursor.close()
