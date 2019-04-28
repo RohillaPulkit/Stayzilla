@@ -1,14 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from accounts.forms import SignInForm, SignUpForm
 from accounts.database.dbmanager import DBManager
-
-# from listing.database.dbmanager import DBManager as ListingDBManager
-# from listing.models import Booking
-#
-# import random
-# import datetime
 
 
 def sign_in_view(request):
@@ -21,7 +15,7 @@ def sign_in_view(request):
             if user.is_admin:
                 return redirect("dashboard:dashboard")
             else:
-                return redirect("listing:search")
+                return redirect("search:search")
         else:
             return render(request, "accounts/signin.html", {"form": sign_in_form})
     else:
@@ -48,6 +42,11 @@ def signup_view(request):
     else:
         sign_up_form = SignUpForm()
         return render(request, "accounts/signup.html", {"form": sign_up_form})
+
+
+def signout_view(request):
+    logout(request)
+    return redirect("accounts:signin")
 
 
 # Code To Generate Random Bookings

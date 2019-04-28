@@ -58,6 +58,22 @@ body {
   margin-bottom: 15px;
   margin-top: 15px;
 }
+.form-search input{
+
+    border-right-width: 0px;
+}
+
+.form-search input:focus{
+    border-right: none;
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.form-search div{
+
+    background-color: white;
+    border-radius: 5px;
+}
 
 .form-search .btn-link {
     font-weight: 400;
