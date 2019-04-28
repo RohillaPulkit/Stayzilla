@@ -6,6 +6,10 @@
     {% include 'listing/details/js.html' %}
 {% endblock %}
 
+{% block navbar_title %}
+    <p class="navbar-nav mr-auto text-white lead">{{ listing.name }}, {{ listing.street }}</p>
+{% endblock %}
+
 {% block content %}
 <div class="price-trend nav-scroller shadow row justify-content-center align-items-center">
     <div class="col" id="past_price_trend_container">
