@@ -1,24 +1,26 @@
 from django import forms
 from .models import NewListing
 from bootstrap_datepicker_plus import DatePickerInput
-from datetime import datetime, date, timedelta
-from django.shortcuts import render, HttpResponse
+from datetime import datetime
 
 ROOM_CHOICES = (
-    ('private_room','PRIVATE ROOM'),
-    ('shared_room', 'SHARED ROOM'),
-    ('entire_place', 'ENTIRE PLACE'),
+    ('private_room','Private Room'),
+    ('shared_room', 'Shared Room'),
+    ('entire_place', 'Entire Place'),
 )
 
 PROPERTY_CHOICES = (
-    ('apartment','APARTMENT'),
-    ('condominium', 'CONDOMINIUM'),
-    ('guest_suite', 'GUEST SUITE'),
-    ('house', 'HOUSE'),
+    ('apartment','Apartment'),
+    ('condominium', 'Condominium'),
+    ('guest_suite', 'Guest Suite'),
+    ('house', 'House'),
 )
 
 
 class HostForm(forms.ModelForm):
+    room_type = forms.ChoiceField(choices=ROOM_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    property_type = forms.ChoiceField(choices=PROPERTY_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+
     class Meta:
         model = NewListing
         fields = ('name', 'description' , 'house_rules' , 'accommodates' ,
@@ -33,12 +35,6 @@ class HostForm(forms.ModelForm):
                                                      'placeholder': 'Enter number of maximum guests'}),
             'cancellation_policy': forms.TextInput(attrs={'class': 'form-control',
                                                           'placeholder': 'Cancellation Policy of the listing'}),
-            'room_type': forms.TextInput(attrs={'class': 'form-control',
-                                                'placeholder': 'Type of room available'
-                                                }),
-            'property_type': forms.TextInput(attrs={'class': 'form-control',
-                                                    'placeholder': 'Type of property available'
-                                                    }),
             'amenities': forms.Textarea(attrs={'class': 'form-control',
                                                 'placeholder': 'Amenities offered'
                                                 }),
@@ -74,33 +70,31 @@ class HostForm(forms.ModelForm):
                                        }
                                        ),
             'price': forms.NumberInput(attrs={'class': 'form-control',
-                                                'placeholder': 'Price per listing'
+                                                'placeholder': 'Price per night'
                                                 }),
         }
 
+    def clean(self):
+        form_data = self.cleaned_data
 
-def clean(self):
-    print('called')
-    form_data = self.cleaned_data
+        today = datetime.now()
+        today = today.replace(hour=0, minute=0, second=0, microsecond=0).date()
+        print(form_data)
+        from_date_string = form_data.get('start_date')
+        to_date_string = form_data.get('end_date')
 
-    today = datetime.now()
-    today = today.replace(hour=0, minute=0, second=0, microsecond=0).date()
+        print(from_date_string)
 
-    from_date_string = form_data.get('start_date')
-    to_date_string = form_data.get('end_date')
+        from_date = datetime.strptime(from_date_string, '%d-%b-%y').date()
+        to_date = datetime.strptime(to_date_string, '%d-%b-%y').date()
 
-    from_date = datetime.strptime(from_date_string, '%d-%m-%y').date()
-    to_date = datetime.strptime(to_date_string, '%d-%m-%y').date()
+        if from_date < today or to_date < today:
+            self._errors["Invalid Date "] = "Dates cannot be in past."
+            return form_data
 
-    if from_date < today or to_date < today:
-        self._errors["Invalid Date"] = "Dates cannot be in past."
-        return HttpResponse("please enter valid dates")
+        if from_date >= to_date:
+            self._errors["Invalid Date "] = "Start Date cannot be greater than or equal to To Date."
+            return form_data
+
         return form_data
-
-    if from_date >= to_date:
-        self._errors["Invalid Date"] = "Check-In cannot be greater than or equal to Check-Out."
-        return HttpResponse("please enter valid dates")
-        return form_data
-
-    return form_data
 

@@ -5,7 +5,6 @@ class NewListing(models.Model):
     class Meta:
         managed = False
 
-    host_id = models.IntegerField()
     name = models.TextField()
     description = models.TextField()
     house_rules = models.TextField()
@@ -22,6 +21,6 @@ class NewListing(models.Model):
     state = models.TextField()
     zip_code = models.TextField()
     score = models.IntegerField()
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.TextField()
+    end_date = models.TextField()
     price = models.IntegerField()

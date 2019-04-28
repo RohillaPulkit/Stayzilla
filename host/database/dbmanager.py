@@ -6,7 +6,7 @@ from datetime import datetime, date, timedelta
 class DBManager:
 
     @staticmethod
-    def create_listing(listing):
+    def create_listing(listing, host_id):
         cursor = connection.cursor()
         try:
             name = listing.get('name')
@@ -27,19 +27,23 @@ class DBManager:
             picture_url = listing.get('picture_url')
             cancellation_policy = listing.get('cancellation_policy')
 
-            start_date = listing.get('start_date')
-            end_date=listing.get('end_date')
-
             cursor.execute(dbqueries.insert_listing,
-                           [name, room_type, property_type, street,state,city,zip_code,amenities,house_rules,description,accommodates,picture_url,cancellation_policy])
+                           [host_id, name, room_type, property_type, street, state, city,
+                            zip_code, amenities, house_rules, description, accommodates,
+                            picture_url, cancellation_policy])
 
-            price=listing.get('price')
+            price = listing.get('price')
+
+            start_date_string = listing.get('start_date')
+            end_date_string = listing.get('end_date')
+
+            start_date = datetime.strptime(start_date_string, '%d-%b-%y')
+            end_date = datetime.strptime(end_date_string, '%d-%b-%y')
 
             d1 = start_date
             d2 = end_date
 
-            dd = [d1 + timedelta(days=x)
-            for x in range((d2 - d1).days + 1)]
+            dd = [d1 + timedelta(days=x) for x in range((d2 - d1).days + 1)]
 
             dates = []
             for d in dd:
@@ -47,15 +51,15 @@ class DBManager:
 
             availabilities = []
             for date in dates:
-                date_string = datetime.strftime(date, '%d-%m-%y')
-                avail = {'availability_date':date_string, 'price': price, 'is_available': 1}
+                date_string = datetime.strftime(date, '%d-%b-%y')
+                avail = {'availability_date': date_string, 'price': price, 'is_available': 1}
                 availabilities.append(avail)
 
             DBManager.add_availability(availabilities)
             return True
         except Exception as ex:
             print("Error Message:", ex)
-            return False
+            return ex
         finally:
             cursor.close()
 
@@ -77,8 +81,10 @@ class DBManager:
             print(rows)
             cursor.executemany(dbqueries.add_availability, rows)
             connection.commit()
+            return True
         except Exception as ex:
             print(ex)
+            return ex
         finally:
             cursor.close()
 
