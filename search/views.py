@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.forms import ValidationError
 from .forms import SearchForm
 import json
 import datetime

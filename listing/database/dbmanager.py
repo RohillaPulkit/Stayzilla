@@ -82,7 +82,7 @@ class DBManager:
                 listing.host_contact = dict_listing.HOST_CONTACT
                 listing.name = dict_listing.NAME
                 listing.description = dict_listing.DESCRIPTION
-                listing.house_rules = dict_listing.HOUST_RULES
+                listing.house_rules = dict_listing.HOUSE_RULES
                 listing.accommodates = dict_listing.ACCOMMODATES
                 listing.cancellation_policy = dict_listing.CANCELLATION_POLICY
                 listing.room_type = dict_listing.ROOM_TYPE
