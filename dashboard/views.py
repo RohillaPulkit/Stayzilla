@@ -4,12 +4,15 @@ from dashboard.database.dbmanager import DBManager
 
 
 def dashboard(request):
-    return render(request, "dashboard/base.html", {})
+    all_states = DBManager.get_states()
+    return render(request, "dashboard/base.html", {'all_states': all_states})
 
 
 def get_chart_data(request):
-    chart_data = DBManager.get_chart_data()
-    print(chart_data)
+    selected_state = request.GET['selected_state']
+    print(selected_state)
+
+    chart_data = DBManager.get_chart_data(selected_state)
     months = []
     bookings = []
     for item in chart_data:
@@ -31,9 +34,12 @@ def get_table_data(request):
 
 
 def get_pie_graph_data(request):
-    single_private_room_data = DBManager.get_single_private_room_data()
-    entire_apt_data = DBManager.get_entire_apt_data()
-    single_shared_room_data = DBManager.get_single_shared_room_data()
+    selected_state = request.GET['selected_state']
+    print(selected_state)
+
+    single_private_room_data = DBManager.get_single_private_room_data(selected_state)
+    entire_apt_data = DBManager.get_entire_apt_data(selected_state)
+    single_shared_room_data = DBManager.get_single_shared_room_data(selected_state)
     pie_data={}
     pie_data['labels'] = ['Single Private Room', 'Entire Apartment', 'Single Shared Rooms']
     pie_data['data'] = [single_private_room_data, entire_apt_data, single_shared_room_data]
@@ -42,22 +48,27 @@ def get_pie_graph_data(request):
 
 
 def get_table2_data(request):
-    # location_data = DBManager.get_location_percent()
-    # print(location_data)
-    # return render(request, "dashboard/table1.html", {"location_data": location_data})
-    table2_data = [{"parameter": "abc", "values": "123"}, {"parameter": "xyz", "values": "456"}, {"parameter": "abc", "values": "123"}, {"parameter": "abc", "values": "123"}]
 
-    print(table2_data)
-    return render(request, "dashboard/table2.html", {"table2_data": table2_data})
+        best_state = DBManager.get_best_state()
+        best_listing = DBManager.get_best_listing()
+        best_host = DBManager.get_best_host()
+        least_avail = DBManager.get_least_available()
+        table2_data = [{"parameter": "Best state to visit in most ideal month", "values": best_state}, {"parameter": "Best listing with lowest price per night and highest rating", "values": best_listing}, {"parameter": "Host with highest booking", "values": best_host}, {"parameter": "Host with most available listing", "values": least_avail}]
+        print(table2_data)
+        return render(request, "dashboard/table2.html", {"table2_data": table2_data})
 
 
 def get_table3_data(request):
-    # location_data = DBManager.get_location_percent()
-    # print(location_data)
-    # return render(request, "dashboard/table1.html", {"location_data": location_data})
-    table3_data = [{"param1": "abc", "param2": "123", "param3": "abc", "param4": "123"}, {"param1": "abc", "param2": "123", "param3": "abc", "param4": "123"}, {"param1": "abc", "param2": "123", "param3": "abc", "param4": "123"}, {"param1": "abc", "param2": "123", "param3": "abc", "param4": "123"}]
-    print(table3_data)
-    return render(request, "dashboard/table3.html", {"table3_data": table3_data})
+    info_data = DBManager.get_info_table_data()
+
+    data = []
+    for item in info_data:
+        dict_data = {'name': item.NAME, 'count': item.COUNT}
+        data.append(dict_data)
+
+
+    print(data)
+    return render(request, "dashboard/table3.html", {"info_data": data})
 
 
 def get_chart3(request):
