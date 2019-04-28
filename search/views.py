@@ -17,10 +17,10 @@ def search_listing(request):
 
             return redirect('listing:results')
         else:
-            return render(request, 'search.html', {"searchform": form})
+            return render(request, 'search/search.html', {"searchform": form})
     else:
         form = SearchForm()
-        return render(request, 'search.html', {"searchform": form})
+        return render(request, 'search/search.html', {"searchform": form})
 
 
 def date_converter(o):
