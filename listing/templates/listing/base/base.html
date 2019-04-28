@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include 'base/css.html' %}
-    {% include 'base/js.html' %}
+    {% include 'listing/base/css.html' %}
+    {% include 'listing/base/js.html' %}
 
     <meta charset="UTF-8">
     <title>
@@ -31,7 +31,7 @@
     {% endblock %}
     <ul class="navbar-nav navbar-right">
     <li class="nav-item">
-        <a class="nav-link" href="#">Become a host</a>
+        <a class="nav-link" href="{% url "host:host" %}">Become a host</a>
     </li>
         <li class="nav-item dropdown">
         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
