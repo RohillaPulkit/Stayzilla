@@ -3,6 +3,7 @@ from .models import Search
 from bootstrap_datepicker_plus import DatePickerInput
 from datetime import datetime
 
+
 class SearchForm(forms.ModelForm):
     class Meta:
         model = Search
@@ -33,7 +34,7 @@ class SearchForm(forms.ModelForm):
 
         today = datetime.now()
         today = today.replace(hour=0, minute=0, second=0, microsecond=0).date()
-        print(today)
+
         from_date_string = form_data.get('from_date')
         to_date_string = form_data.get('to_date')
 
