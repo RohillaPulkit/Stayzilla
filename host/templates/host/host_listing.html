@@ -4,13 +4,13 @@
     Become A Host
 {% endblock title %}
 
-{#{% block stylesheets %}#}
-{#    {% include 'host/date_picker.css' %}#}
-{#{% endblock stylesheets %}#}
-{##}
-{#{% block scripts %}#}
-{#    {% include 'host/js.html' %}#}
-{#{% endblock scripts %}#}
+{% block stylesheets %}
+    {% include 'host/css.html' %}
+{% endblock stylesheets %}
+
+{% block scripts %}
+    {% include 'host/js.html' %}
+{% endblock scripts %}
 
 
 {% block navbar_title %}
@@ -18,12 +18,12 @@
 {% endblock navbar_title %}
 
 {% block content %}
-<div class="form-control">
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
-</form>
+<div class="nav-scroller">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-primary btn-block mt-2 mb-2">Submit</button>
+        </form>
 </div>
 {% endblock content %}
 
