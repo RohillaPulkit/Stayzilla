@@ -232,10 +232,10 @@ class DBManager:
             cursor.close()
 
     @staticmethod
-    def get_profit():
+    def get_profit_peryear(state):
         cursor = connection.cursor()
         try:
-            cursor.execute(dbqueries.get_profit)
+            cursor.execute(dbqueries.get_profit,[state])
             results = DBManager.named_tuple_fetchall(cursor)
 
             if results is None:

@@ -9,6 +9,7 @@
 var state_data;
 var selected_state1 = 0;
 var selected_state2 = 0;
+var selected_state3 = 0;
 var barChart;
 
 $(document).ready(function(){
@@ -26,6 +27,7 @@ $(document).ready(function(){
     menuListener();
     setStateMenu1();
     setStateMenu2();
+    setStateMenu3();
 })
 
 function init(){
@@ -40,6 +42,9 @@ function init(){
     if(selected_state2 ==0){
 
         selected_state2 = state_data[0];
+    }
+    if(selected_state3 ==0){
+        selected_state3 = state_data[0];
     }
 }
 
@@ -172,6 +177,7 @@ function loadHostChart(){
     let endpoint = "{%  url "dashboard:chart3_data"  %}";
 
     $.ajax({
+        data: {'selected_state': selected_state3},
         method:"GET",
         url: endpoint,
         success: function(chart3_data){
@@ -293,6 +299,12 @@ function menuListener(){
             loadPieChart()
             setStateMenu2()
         }
+        else if(type == "state3"){
+            selected_state3 = $(this).data("id");
+
+            loadHostChart()
+            setStateMenu3()
+        }
 
     });
 }
@@ -328,6 +340,24 @@ function setStateMenu2(){
         else
         {
             $('#state_list2').append('<button class="dropdown-item" type="button" data-id="'+state_data[index]+'" data-type="state2">'+state_data[index]+'</button>')
+        }
+    }
+
+}
+
+function setStateMenu3(){
+
+    $('#state_list3').empty() //EmptyList
+
+    for(index in state_data){
+
+        if (selected_state3 == state_data[index]){
+
+            $('#state_list3').append('<button class="dropdown-item active" type="button" data-id="'+state_data[index]+'" data-type="state3">'+state_data[index]+'</button>')
+        }
+        else
+        {
+            $('#state_list3').append('<button class="dropdown-item" type="button" data-id="'+state_data[index]+'" data-type="state3">'+state_data[index]+'</button>')
         }
     }
 

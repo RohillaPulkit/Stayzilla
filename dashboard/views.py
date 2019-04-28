@@ -72,10 +72,18 @@ def get_table3_data(request):
 
 
 def get_chart3(request):
-    profit = DBManager.get_profit()
-    chart3_data = {}
-    chart3_data['label'] = profit.yr
-    chart3_data['data'] = profit.profit
-    print("chart3")
-    print(chart3_data)
-    return JsonResponse(chart3_data, safe=False)
+    selected_state = request.GET['selected_state']
+    print(selected_state)
+    profit = DBManager.get_profit_peryear(selected_state)
+    profits = []
+    years = []
+    for item in profit:
+        pr = item.PROFIT
+        yr = item.YR
+        profits.append(pr)
+        years.append(yr)
+
+    chart_data = {}
+    chart_data['label'] = years
+    chart_data['data'] = profits
+    return JsonResponse(chart_data, safe=False)
