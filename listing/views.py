@@ -1,10 +1,9 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .database.dbmanager import DBManager
 from search.database.dbmanager import DBManager as SearchManager
 from booking.forms import BookingForm
 from booking.models import Booking
-import datetime
 import json
 
 
@@ -69,7 +68,7 @@ def get_details(request, listing_id):
             booking = booking_form.cleaned_data
             success = DBManager.add_booking(booking)
             if success == True:
-                return HttpResponse("Your booking has been confirmed.")
+                return render(request, 'listing/confirmation.html', {'listing': listing})
             else:
                 booking_form.errors['DB Error '] = success
         return render(request, 'listing/details/details.html', {

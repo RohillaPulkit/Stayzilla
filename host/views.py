@@ -16,7 +16,7 @@ def host_listing(request):
             listing = form.cleaned_data
             success = DBManager.create_listing(listing, host_id)
             if success == True:
-                return HttpResponse("Your listing has been added.")
+                return render(request, 'host/confirmation.html')
             else:
                 form.errors['DB Error '] = success
                 return render(request, "host/host_listing.html", {"form": form})

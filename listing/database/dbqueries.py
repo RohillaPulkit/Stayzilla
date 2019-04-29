@@ -45,25 +45,23 @@ get_monthly_price_trend = "SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS MONTH,
 get_available_dates_with_price = "SELECT TO_CHAR(AVAILABILITY_DATE, 'DD-Mon-YY') AS AVAILABILITY_DATE, PRICE" \
                                 " FROM AVAILABLE WHERE LISTING_ID = %s AND IS_AVAILABLE = 1;"
 
-get_best_time_to_visit = " SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS \"MONTH\" FROM"\
-                         "("\
-                         "    SELECT MON, MIN(AVG_PRICE) AS PRICE, SUM(TOTAL_DAYS) AS TOTAL_DAYS FROM"\
-                         "    ("\
-                         "        SELECT MON, YR, ROUND(TOTAL_PRICE/TOTAL_DAYS) AS AVG_PRICE, TOTAL_DAYS  FROM"\
-                         "        ("\
-                         "            SELECT MON, YR, SUM(PRICE) AS TOTAL_PRICE, SUM(NUMBER_OF_DAYS) AS TOTAL_DAYS FROM"\
-                         "            ("\
-                         "                SELECT EXTRACT(MONTH FROM CHECK_IN) AS MON, "\
-                         "                EXTRACT(YEAR FROM CHECK_IN) AS YR,"\
-                         "                PRICE/ NUMBER_OF_GUESTS AS PRICE, (CHECK_OUT-CHECK_IN) AS NUMBER_OF_DAYS"\
-                         "                FROM BOOKING WHERE LISTING_ID = %s"\
-                         "            )"\
-                         "            GROUP BY MON, YR"\
-                         "        )"\
-                         "    )"\
-                         "    GROUP BY MON"\
-                         "    ORDER BY TOTAL_DAYS DESC, PRICE ASC FETCH FIRST 1 ROW ONLY"\
-                         ")"
+get_best_time_to_visit = "SELECT TO_CHAR(TO_DATE(MON, 'MM'), 'Month') AS MONTH FROM "\
+                         "       ( "\
+                         "        "\
+                         "           SELECT MON, ROUND(AVG(PRICE_PER_GUEST_PER_DAY), 2) AS PRICE, SUM(NUMBER_OF_DAYS)" \
+                         "               AS TOTAL_DAYS FROM ( "\
+                         "               SELECT MON, PRICE_PER_GUEST/NUMBER_OF_DAYS AS PRICE_PER_GUEST_PER_DAY, "\
+                         "               NUMBER_OF_DAYS FROM "\
+                         "                ( "\
+                         "                    SELECT EXTRACT(MONTH FROM CHECK_IN) AS MON, "\
+                         "                    PRICE/NUMBER_OF_GUESTS AS PRICE_PER_GUEST, "\
+                         "                    (CHECK_OUT-CHECK_IN) AS NUMBER_OF_DAYS "\
+                         "                    FROM BOOKING WHERE LISTING_ID = %s "\
+                         "                ) "\
+                         "            ) "\
+                         "            GROUP BY MON "\
+                         "       ) "\
+                         "    ORDER BY TOTAL_DAYS DESC, PRICE ASC FETCH FIRST 1 ROWS ONLY"
 
 get_past_weekly_price_trend = "WITH "\
     " DATES AS (SELECT UPPER_BOUND.CURRENT_DATE - ROWNUM AS VALID_DATE "\
