@@ -4,13 +4,13 @@ from bootstrap_datepicker_plus import DatePickerInput
 from datetime import datetime
 
 ROOM_CHOICES = (
-    ('private_room','Private Room'),
-    ('shared_room', 'Shared Room'),
-    ('entire_place', 'Entire Place'),
+    ('Private Room', 'Private Room'),
+    ('Shared Room', 'Shared Room'),
+    ('Entire Place', 'Entire Place'),
 )
 
 PROPERTY_CHOICES = (
-    ('apartment','Apartment'),
+    ('apartment', 'Apartment'),
     ('condominium', 'Condominium'),
     ('guest_suite', 'Guest Suite'),
     ('house', 'House'),

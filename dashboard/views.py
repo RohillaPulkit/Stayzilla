@@ -60,7 +60,7 @@ def get_table2_data(request):
         best_listing = DBManager.get_best_listing()
         best_host = DBManager.get_best_host()
         least_avail = DBManager.get_least_available()
-        table2_data = [{"parameter": "Best state to visit in most ideal month", "values": best_state},
+        table2_data = [{"parameter": "Best place to visit", "values": best_state},
                        {"parameter": "Best listing with lowest price per night and highest rating",
                         "values": best_listing},
                        {"parameter": "Host with highest sale", "values": best_host},

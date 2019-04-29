@@ -23,14 +23,34 @@ get_chart_data = " select TO_CHAR(TO_DATE(mon, 'MM'), 'Mon') as Mont,bookingpric
 get_all_states = "select distinct state as state from listing order by state ASC;"
 
 
-get_single_private_rooms = " select count(*) as SINGLEPRIVATEROOM from(select room_type from listing " \
-                           "where state = %s)where room_type = 'Private room'"
+get_single_private_rooms = "select count(booking) as SINGLEPRIVATEROOM from "\
+                 "(select booking.id as booking, "\
+                 "room_type from booking, listing "\
+                 "WHERE booking.listing_id = listing.id "\
+                 "AND state = %s "\
+                 "AND (UPPER(room_type) LIKE UPPER('Private Room') " \
+                 " OR " \
+                 " UPPER(room_type) LIKE UPPER('Private_Room') "\
+                 "))"
 
-get_entire_apt = " select count(*) as ENTIREROOMS from(select room_type from listing " \
-                           "where state = %s)where room_type = 'Entire home/apt'"
+get_entire_apt = "select count(booking) as ENTIREROOMS from "\
+                 "(select booking.id as booking, "\
+                 "room_type from booking, listing "\
+                 "WHERE booking.listing_id = listing.id "\
+                 "AND state = %s "\
+                 "AND (UPPER(room_type) LIKE UPPER('Entire home/apt') " \
+                 "OR UPPER(room_type) LIKE UPPER('Entire place') " \
+                 "OR UPPER(room_type) LIKE UPPER('Entire_place')) "\
+                 ")"
 
-get_single_shared_rooms = " select count(*) as SHAREDROOMS from(select room_type from listing " \
-                           "where state = %s)where room_type = 'Shared room'"
+get_single_shared_rooms = "select count(booking) as SHAREDROOMS from "\
+                 "(select booking.id as booking, "\
+                 "room_type from booking, listing "\
+                 "WHERE booking.listing_id = listing.id "\
+                 "AND state = %s "\
+                 "AND (UPPER(room_type) LIKE UPPER('Shared room') " \
+                 "OR UPPER(room_type) LIKE UPPER('Shared_room'))"\
+                 ")"
 
 get_max_state_month = "select state||' in '|| TO_CHAR(TO_DATE(mon, 'MM'), 'Month') as STATE" \
                       " from(select count(*) as number_of_booking, state, mon " \
@@ -55,15 +75,23 @@ get_best_host = "select first_name||' '||last_name ||' having ' ||" \
                 " fetch first 1 row only) "\
                 " JOIN USERS ON users.user_id = host"
 
-get_least_avail = "select first_name||' '||last_name as NAME from users " \
-                  "where users.user_id in (select host_id " \
-                  "from listing where id in( select id from " \
-                  "( select count(availability_date) as available, available.listing_id as id " \
-                  "from available join listing on listing.id = available.listing_id " \
-                  "where is_available = 1 " \
-                  "group by available.listing_id " \
-                  "order by available desc " \
-                  "fetch first 1 row only)));"
+get_least_avail = "SELECT first_name||' '||last_name as NAME FROM "\
+            "(  "\
+            "    SELECT USER_ID AS HOST_ID, SUM(AVAILABLES) AS TOTAL_AVAILABLES FROM "\
+            "        (  "\
+            "            SELECT USER_ID, LISTING_ID, COUNT(AVAILABILITY_DATE) AS AVAILABLES FROM  "\
+            "            LISTING "\
+            "            JOIN USERS ON LISTING.host_id = USERS.USER_ID "\
+            "            JOIN AVAILABLE ON AVAILABLE.LISTING_ID = ID "\
+            "            WHERE "\
+            "            AVAILABLE.IS_AVAILABLE = 1 "\
+            "            GROUP BY USER_ID, LISTING_ID "\
+            "        )  "\
+            "    GROUP BY USER_ID   "\
+            ") "\
+            "JOIN USERS ON USERS.USER_ID = HOST_ID "\
+            "ORDER BY TOTAL_AVAILABLES DESC "\
+            "FETCH FIRST ROW ONLY "
 
 get_info = "SELECT 'Listing' AS NAME, COUNT(*) AS Count FROM LISTING UNION " \
            "SELECT 'Review' AS NAME, COUNT(*) AS Count FROM REVIEW UNION " \
