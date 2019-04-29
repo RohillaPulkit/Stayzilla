@@ -32,7 +32,8 @@ get_entire_apt = " select count(*) as ENTIREROOMS from(select room_type from lis
 get_single_shared_rooms = " select count(*) as SHAREDROOMS from(select room_type from listing " \
                            "where state = %s)where room_type = 'Shared room'"
 
-get_max_state_month = "select state as STATE from(select count(*) as number_of_booking, state, mon " \
+get_max_state_month = "select state||' in '|| TO_CHAR(TO_DATE(mon, 'MM'), 'Month') as STATE" \
+                      " from(select count(*) as number_of_booking, state, mon " \
                  "from( select extract(MONTH FROM CHECK_IN) as mon,listing_id, state " \
                  "from booking join listing on booking.listing_id = listing.id)" \
                  " group by mon, state) order by number_of_booking desc " \
@@ -45,13 +46,14 @@ get_best_home ="select id as ID from(select id, (price/nog) as priceperguest, re
                "group by listing.id)) order by priceperguest asc, " \
                "review desc fetch first 1 row only"
 
-get_best_host = "select first_name||''||last_name as HOST from users " \
-                "where users.user_id in" \
-                "(select host from (select sum(price) as max_profit, host.host_id as host" \
-                " from listing join host on host.host_id = listing.host_id" \
-                " join booking on booking.listing_id = listing.id " \
-                "group by host.host_id order by max_profit desc " \
-                "fetch first 1 row only))"
+get_best_host = "select first_name||' '||last_name ||' having ' ||" \
+                " TO_CHAR(max_profit, 'L999,999,999.00') || ' of sales' as HOST from "\
+                "(select sum(price) as max_profit, host.host_id as host "\
+                " from listing join host on host.host_id = listing.host_id "\
+                " join booking on booking.listing_id = listing.id  "\
+                " group by host.host_id order by max_profit desc "\
+                " fetch first 1 row only) "\
+                " JOIN USERS ON users.user_id = host"
 
 get_least_avail = "select first_name||' '||last_name as NAME from users " \
                   "where users.user_id in (select host_id " \
