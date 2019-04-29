@@ -43,7 +43,7 @@
 {#    style="justify-content: space-between#}
 
     <div class="row m-5 justify-content-center">
-
+       {%  if listings %}
          {% for listing in listings %}
 
              <div class="card ml-2 mr-2 mb-5" style="width: 18rem;">
@@ -68,6 +68,9 @@
              </div>
 
         {% endfor %}
+    {% else %}
+        <h2> No Listings found</h2>
+    {% endif %}
 
     </div>
 
