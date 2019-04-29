@@ -202,7 +202,7 @@ function setHostPieChart(data){
      pieChart2.destroy()
     }
         pieChart2 = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: data.label,
                 datasets: [{
@@ -323,6 +323,8 @@ function setStateMenu1(){
 
     $('#state_list1').empty() //EmptyList
 
+    $('#state1').text(selected_state1);
+
     for(index in state_data){
 
         if (selected_state1 == state_data[index]){
@@ -341,6 +343,8 @@ function setStateMenu2(){
 
     $('#state_list2').empty() //EmptyList
 
+    $('#state2').text(selected_state2);
+
     for(index in state_data){
 
         if (selected_state2 == state_data[index]){
@@ -358,6 +362,8 @@ function setStateMenu2(){
 function setStateMenu3(){
 
     $('#state_list3').empty() //EmptyList
+
+    $('#state3').text(selected_state3);
 
     for(index in state_data){
 
