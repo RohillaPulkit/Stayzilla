@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from .forms import SearchForm
 import json
 import datetime
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url="/accounts/signin")
 def search_listing(request):
     if request.method == 'POST':
         form = SearchForm(data=request.POST)

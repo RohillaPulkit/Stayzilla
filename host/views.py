@@ -1,6 +1,6 @@
 from host.database.dbmanager import DBManager
 from .forms import HostForm
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 

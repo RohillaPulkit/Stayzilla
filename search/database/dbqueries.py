@@ -33,7 +33,7 @@ search_customer_listing = \
    "ON A.LISTING_ID = B.LISTING_ID "\
    "ORDER BY A.LISTING_ID "\
 ")PRI_SCORE "\
-"ON LTABLE.ID = PRI_SCORE.LISTING_ID"
+"ON LTABLE.ID = PRI_SCORE.LISTING_ID ORDER BY LISTING_ID DESC"
 
 search_price_filtered_listing= \
 " WITH "\

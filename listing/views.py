@@ -19,6 +19,7 @@ def search_result(request):
     return render(request, 'listing/result.html', {"listings": listings,
                                                    "city": city})
 
+@login_required(login_url="/accounts/signin")
 def search_filter_result(request,price):
     print("Reached filter")
     search_query = request.session.get('search_query')
@@ -31,6 +32,7 @@ def search_filter_result(request,price):
     return render(request, 'listing/result.html', {"listings": listings,
                                                    "city": city})
 
+@login_required(login_url="/accounts/signin")
 def search_popular_result(request,score):
     print("Reached filter")
     print(score)

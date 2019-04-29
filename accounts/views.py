@@ -7,6 +7,11 @@ from accounts.database.dbmanager import DBManager
 
 def sign_in_view(request):
     # generate_booking_data()
+    old_user = request.user
+    # print(old_user.user_id)
+    if not old_user.is_anonymous:
+        return redirect("search:search")
+
     if request.method == "POST":
         sign_in_form = SignInForm(data=request.POST)
         if sign_in_form.is_valid():
