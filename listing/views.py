@@ -10,13 +10,40 @@ import json
 
 @login_required(login_url="/accounts/signin")
 def search_result(request):
+
     search_query = request.session.get('search_query')
     json_query = json.loads(search_query)
+    city = json_query.get('destination')
     print(search_query)
     listings = SearchManager.search_customer_listing(json_query)
     print(listings)
-    return render(request, 'listing/result.html', {"listings": listings})
+    return render(request, 'listing/result.html', {"listings": listings,
+                                                   "city": city})
 
+def search_filter_result(request,price):
+    print("Reached filter")
+    search_query = request.session.get('search_query')
+    json_query = json.loads(search_query)
+    city = json_query.get('destination')
+
+    print(search_query)
+    listings = SearchManager.search_price_filtered_listing(json_query,price)
+    # print(listings)
+    return render(request, 'listing/result.html', {"listings": listings,
+                                                   "city": city})
+
+def search_popular_result(request,score):
+    print("Reached filter")
+    print(score)
+    search_query = request.session.get('search_query')
+    json_query = json.loads(search_query)
+    city = json_query.get('destination')
+
+    print(search_query)
+    listings = SearchManager.search_score_filtered_listing(json_query,score)
+    # print(listings)
+    return render(request, 'listing/result.html', {"listings": listings,
+                                                   "city": city})
 
 @login_required(login_url="/accounts/signin")
 def get_details(request, listing_id):
